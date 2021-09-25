@@ -1,6 +1,6 @@
 package com.revature;
 
-public class Placeholder {
+public class Launcher {
 
 	public static void main(String[] args) {
 		System.out.println("wh");
