@@ -6,12 +6,16 @@
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.password">JacobPeterProject1</property>
-        <property name="hibernate.connection.url">sigma-crow-327222:us-east1:project1</property>
+        <property name="hibernate.connection.url">${url}</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
 		<property name="hibernate.hbm2ddl.auto">create</property>
-		<!-- Add default schema and classes later -->
+		<property name="hibernate.default_schema">project1</property>
+		<mapping class="com.revature.models.Ticket"/>
+		<mapping class="com.revature.models.Employee"/>
+		<mapping class="com.revature.models.Manager"/>
+
     </session-factory>
 </hibernate-configuration>
