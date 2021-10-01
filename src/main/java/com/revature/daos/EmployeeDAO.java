@@ -76,10 +76,11 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 
 		List<Employee> employees = getEmployees();
 		
-		for (int i=0; i<employees.size(); i++) {
-			Employee temp = employees.get(i);
-			if (username.equals(temp.getUsername())&&password.equals(temp.getPassword()))
+		for (Employee e : employees) {
+			if (username.equals(e.getUsername()) && 
+				password.equals(e.getPassword())) {
 				return true;
+			}
 		}
 		
 		return false;
@@ -93,14 +94,12 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 		List<Employee> employeeList=getEmployees();
 		Employee emp = new Employee();
 		
-		for (int i=0; i<employeeList.size(); i++) {
-			
-			Employee temp=employeeList.get(i);
-			int ID=temp.getID();
-			if (ID==EID)
-				return temp;
+		for (Employee e : employeeList) {
+			if (EID == e.getID()) {
+				return e;
+			}
 		}
-		//Add code to notify user if an ID isn't found later
+	
 		return null;
 	}
 	
