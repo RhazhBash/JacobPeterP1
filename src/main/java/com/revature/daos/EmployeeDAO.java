@@ -3,7 +3,9 @@ package com.revature.daos;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
 import com.revature.models.Employee;
+import com.revature.utils.HibernateUtil;
 
 public class EmployeeDAO {
 
@@ -24,14 +26,18 @@ public class EmployeeDAO {
 		}
 	}
 
-	@SuppressWarnings("unchecked")      
-	public List<Employee> getAllEmployees(){       
-	    try
-	    {
-	        return sessionFactory.getCurrentSession().createCriteria(Employee.class).list();
-	    } catch (Exception e) {
-	        return new ArrayList<>();
-	    }
+	public List<Employee> getAllEmployees() {
+
+		Session ses = HibernateUtil.getSession();
+
+		// Using HQL! Hibernate Query Language. It references Java Classes, not DB
+		// entities
+		List<Employee> employeeList = ses.createQuery("FROM Employee").list();
+
+		HibernateUtil.closeSession();
+
+		return employeeList;
+
 	}
 	
 	
