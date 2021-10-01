@@ -77,5 +77,7 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 		//Add code to notify user if an ID isn't found later
 		return null;
 	}
+	
+	//Add delete employee method later?
 
 }
