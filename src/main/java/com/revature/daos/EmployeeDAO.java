@@ -37,7 +37,7 @@ public class EmployeeDAO {
 
 	}
 	
-	public Employee findMovieById(int id){
+	public Employee findEmployeeById(int id){
 		
 		Session ses = HibernateUtil.getSession();
 		
