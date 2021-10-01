@@ -54,6 +54,9 @@ dependencies {
     
     // Hibernate Dependency
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.5.7.Final'
+	//implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.5.7.Final'
+	
+	 //Hibernate dependency
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.28.Final'
     
 }
