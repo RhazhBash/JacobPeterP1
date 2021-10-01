@@ -1,10 +1,13 @@
 package com.revature.services;
 
+import com.revature.daos.EmployeeDAO;
+
 public class LoginService {
 
+	EmployeeDAO eDAO = new EmployeeDAO();
 	public boolean login(String username, String password) {
 		
-		if(username.equals("ben") && password.equals("password")) {
+		if(eDAO.validate(username, password)) {
 			return true;
 		}
 		

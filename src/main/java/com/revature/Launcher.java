@@ -19,11 +19,12 @@ public class Launcher {
 			//Remember to output a connection established message somehow
 			HibernateUtil.closeSession();
 		} catch (HibernateException e) {
-			System.out.println("hello old friend. your connection failed");
+			System.out.println("Connection failed");
 		}
 
 		TicketController TC = new TicketController(); 
 		LoginController LC = new LoginController();
+		//EmployeeController EC = new EmployeeController();
 		
 		Javalin app = Javalin.create(
 				config -> {
@@ -31,7 +32,11 @@ public class Launcher {
 				}
 				).start(8090);
 		
-		//app.get("/tickets", TC.getAllAvengersHandler);
+		//
+		
+		app.get("/tickets", TC.getAllTicketsHandler);
+		app.post("/login", LC.loginHandler);
+		//app.get("/employees", EC.getAllTicketsHandler);
 		//This will eventually use something from the TicketController class to define the endpoint
 	}
 	
