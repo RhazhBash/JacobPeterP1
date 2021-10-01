@@ -1,5 +1,8 @@
 package com.revature.daos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.revature.models.Employee;
 
 public class EmployeeDAO {
@@ -21,6 +24,18 @@ public class EmployeeDAO {
 		}
 	}
 
+	@SuppressWarnings("unchecked")      
+	public List<Employee> getAllEmployees(){       
+	    try
+	    {
+	        return sessionFactory.getCurrentSession().createCriteria(Employee.class).list();
+	    } catch (Exception e) {
+	        return new ArrayList<>();
+	    }
+	}
+	
+	
+	
 	public boolean validate(String userName, String password) {
 
 		Transaction transaction = null;
