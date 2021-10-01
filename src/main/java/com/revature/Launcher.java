@@ -35,6 +35,7 @@ public class Launcher {
 		//
 		
 		app.get("/tickets", TC.getAllTicketsHandler);
+		app.get("activetickets", TC.getActiveTicketsHandler);
 		app.post("/login", LC.loginHandler);
 		//app.get("/employees", EC.getAllTicketsHandler);
 		//This will eventually use something from the TicketController class to define the endpoint

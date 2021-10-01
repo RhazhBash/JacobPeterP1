@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.revature.models.Ticket;
 import com.revature.models.Employee;
-import com.revature.models.Manager;
 
 public interface TicketDAOInterface {
 	

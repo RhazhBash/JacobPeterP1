@@ -8,6 +8,7 @@ import com.revature.utils.JWTUtil;
 import io.javalin.http.Handler;
 
 public class LoginController {
+	
 	LoginService ls = new LoginService();
 
 	public Handler loginHandler = (ctx) -> {
