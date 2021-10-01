@@ -3,13 +3,20 @@ package com.revature.daos;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+import com.revature.daos.EmployeeDAOInterface;
+
 import com.revature.models.Employee;
+import com.revature.utils.HibernateUtil;
 
-public class EmployeeDAO {
+public class EmployeeDAO implements EmployeeDAOInterface{
 
-	public void saveUser(Employee employee) {
+	public void newEmployee(Employee employee) {
 		Transaction transaction = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 			// save the student object
@@ -25,41 +32,50 @@ public class EmployeeDAO {
 	}
 
 	@SuppressWarnings("unchecked")      
-	public List<Employee> getAllEmployees(){       
-	    try
-	    {
-	        return sessionFactory.getCurrentSession().createCriteria(Employee.class).list();
-	    } catch (Exception e) {
-	        return new ArrayList<>();
-	    }
+	public List<Employee> getEmployees() {
+
+        Session ses = HibernateUtil.getSession();
+
+        List<Employee> employeeList = ses.createQuery("FROM Employee").list();
+
+        HibernateUtil.closeSession();
+
+        return employeeList;
+
+    }
+	
+	
+	
+	public boolean validate(String username, String password) {
+
+		List<Employee> employees = getEmployees();
+		
+		for (int i=0; i<employees.size(); i++) {
+			Employee temp = employees.get(i);
+			if (username.equals(temp.getUsername())&&password.equals(temp.getPassword()))
+				return true;
+		}
+		
+		return false;
+		
+		//Implement EmployeeDAO to do login service
+		//Potentially loop through the whole users table to check for a match?
+		//Potentially return an employee instead of a bool?
 	}
 	
-	
-	
-	public boolean validate(String userName, String password) {
-
-		Transaction transaction = null;
-		Employee employee = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			// start a transaction
-			transaction = session.beginTransaction();
-			// get an user object
+	public Employee getEmployeeByID(int EID) {
+		List<Employee> employeeList=getEmployees();
+		Employee emp = new Employee();
+		
+		for (int i=0; i<employeeList.size(); i++) {
 			
-			String HQL = "FROM Employee U WHERE U.username = :userName";
-			employee = (Employee) session.createQuery(HQL).setParameter("userName", userName).uniqueResult();
-
-			if (employee != null && employee.getPassword().equals(password)) {
-				return true;
-			}
-			// commit transaction
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
+			Employee temp=employeeList.get(i);
+			int ID=temp.getID();
+			if (ID==EID)
+				return temp;
 		}
-		return false;
+		//Add code to notify user if an ID isn't found later
+		return null;
 	}
 
 }
