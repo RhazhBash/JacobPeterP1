@@ -55,8 +55,12 @@ public class TicketController {
 	public Handler getActiveTicketsByEmployeeHandler = (ctx) -> {
 			
 		if(ctx.req.getSession(false) != null) {
+			
+			String Employee = ctx.formParam("EID");
+			
+			int EID = Integer.parseInt(Employee);
 				
-			List<Ticket> activeTicketsByEmployee = TS.getActiveTicketsByEmployee(); //Figure out how to pass an int into this code block
+			List<Ticket> activeTicketsByEmployee = TS.getActiveTicketsByEmployee(EID); 
 				
 			Gson gson = new Gson();
 			
@@ -70,6 +74,39 @@ public class TicketController {
 		else {
 			ctx.status(403); 
 		}
+		};
+		
+	public Handler getTicketsByEmployeeHandler = (ctx) -> {
+			
+		if(ctx.req.getSession(false) != null) {
+				
+			String Employee = ctx.formParam("EID");
+				
+			int EID = Integer.parseInt(Employee);
+					
+			List<Ticket> ticketsByEmployee = TS.getTicketsByEmployee(EID); 
+					
+			Gson gson = new Gson();
+				
+			String JSONTickets = gson.toJson(ticketsByEmployee); 
+				
+			ctx.result(JSONTickets); 
+				
+			ctx.status(200); 
+		}
+				
+		else {
+			ctx.status(403); 
+		}
+		};
+		
+		public Handler newTicketHandler = (ctx) -> {
+			if(ctx.req.getSession(false) != null) {
+				
+			}
+			else {
+				ctx.status(403);
+			}
 		};
 			
 			

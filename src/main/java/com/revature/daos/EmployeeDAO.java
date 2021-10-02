@@ -45,7 +45,7 @@ public class EmployeeDAO implements EmployeeDAOInterface{
     }
 	
 	
-	
+	//This method should be in a separate LoginDAO class, but idk if it's necessary to make a new class for one method
 	public boolean validate(String username, String password) {
 
 		List<Employee> employees = getEmployees();
@@ -58,7 +58,6 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 		
 		return false;
 		
-		//Implement EmployeeDAO to do login service
 		//Potentially loop through the whole users table to check for a match?
 		//Potentially return an employee instead of a bool?
 	}
@@ -78,6 +77,19 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 		return null;
 	}
 	
-	//Add delete employee method later?
+	public void youreFired(int id)
+	{
+	    Session session ;
+	    Employee Employee ;
+
+	    session = HibernateUtil.getSession();
+	    Employee = (Employee)session.load(Employee.class,id);
+	    session.delete(Employee);
+
+	    //This makes the pending delete to be done
+	    session.flush() ;
+
+	}
+	
 
 }

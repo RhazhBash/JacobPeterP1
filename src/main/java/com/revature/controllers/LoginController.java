@@ -30,7 +30,7 @@ public class LoginController {
 		
 			ctx.status(200);
 			
-			ctx.result("Successfully loged in");
+			ctx.result("Successfully logged in with token "+ jwt);
 			
 		} else {
 			

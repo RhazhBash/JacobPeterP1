@@ -13,6 +13,6 @@ public interface EmployeeDAOInterface {
 	
 	public Employee getEmployeeByID(int EID);
 	
-	
+	public void youreFired(int id);
 	
 }

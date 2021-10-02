@@ -2,8 +2,11 @@ package com.revature.services;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.revature.daos.TicketDAO;
 import com.revature.models.Ticket;
+import com.revature.utils.HibernateUtil;
 
 public class TicketService {
 	TicketDAO TDAO=new TicketDAO();
@@ -22,5 +25,9 @@ public class TicketService {
 	
 	public List<Ticket> getActiveTicketsByEmployee(int EID) {
 		return TDAO.getActiveTicketByEmployee(EID);
+	}
+	
+	public void newTicket(Ticket ticket) {
+		newTicket(ticket);
 	}
 }

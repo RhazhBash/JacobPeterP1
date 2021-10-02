@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import org.hibernate.annotations.Table;
+
 public class Employee {
 	private int ID; //Employee ID
 	private String fname; //Self explanatory

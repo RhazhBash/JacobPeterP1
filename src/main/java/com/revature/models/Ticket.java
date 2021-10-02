@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.hibernate.annotations.Table;
+
 public class Ticket {
 	
 	private int TID; //Ticket ID
