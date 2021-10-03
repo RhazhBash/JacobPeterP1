@@ -129,19 +129,19 @@ public class Ticket {
 	}
 
 	public Employee getAuthor() {
-		return Author;
+		return author;
 	}
 
 	public void setAuthor(Employee author) {
-		Author = author;
+		this.author = author;
 	}
 
 	public Employee getResolver() {
-		return Resolver;
+		return resolver;
 	}
 
 	public void setResolver(Employee resolver) {
-		Resolver = resolver;
+		this.resolver = resolver;
 	}
 
 	public int getStatus() {
