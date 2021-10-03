@@ -12,10 +12,24 @@ import com.revature.daos.EmployeeDAOInterface;
 import com.revature.models.Employee;
 import com.revature.utils.HibernateUtil;
 
-public class EmployeeDAO implements EmployeeDAOInterface{
+public class EmployeeDAO {
 
+	public List<Employee> findAllEmployees() {
+		
+		Session ses = HibernateUtil.getSession();
+		
+		List<Employee> employeeList = ses.createQuery("FROM Employee").list();
+		//We're using HQL, so we refer to the Employee Class instead of the employees table
+		
+		HibernateUtil.closeSession();
+		
+		return employeeList;
+	}
 
-	public void addEmployeee(Employee employee) {
+	
+	
+	
+	public void addEmployee(Employee employee) {
 		
 		//open a Session object to establish a DB connection
 		Session ses = HibernateUtil.getSession(); //similar to opening a Connection with JDBC
@@ -23,86 +37,87 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 		ses.save(employee); 
 		
 		HibernateUtil.closeSession();
-		
-		//This is the ENTIRE insert method - much cleaner than JDBC :)
-		//no try/catch? well, we aren't really writing any SQL that could go wrong. Simply using sessions methods
-		
-
-	public void newEmployee(Employee employee) {
-		Transaction transaction = null;
-		try (Session session = HibernateUtil.getSession()) {
-			// start a transaction
-			transaction = session.beginTransaction();
-			// save the student object
-			session.save(employee);
-			// commit transaction
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		}
-
 	}
-
-	@SuppressWarnings("unchecked")      
-	public List<Employee> getEmployees() {
-
-        Session ses = HibernateUtil.getSession();
-
-        List<Employee> employeeList = ses.createQuery("FROM Employee").list();
-
-        HibernateUtil.closeSession();
-
-        return employeeList;
-
-    }
-	
-	public Employee findEmployeeById(int id){
-		
-		Session ses = HibernateUtil.getSession();
-		
-		Employee employee = ses.get(Employee.class, id);
-		
-		HibernateUtil.closeSession();
-		
-		return employee;
-		
-	}
-	
-	
-	public boolean validate(String username, String password) {
-
-		List<Employee> employees = getEmployees();
-		
-		for (Employee e : employees) {
-			if (username.equals(e.getUsername()) && 
-				password.equals(e.getPassword())) {
-				return true;
-			}
-		}
-		
-		return false;
-		
-		//Implement EmployeeDAO to do login service
-		//Potentially loop through the whole users table to check for a match?
-		//Potentially return an employee instead of a bool?
-	}
-	
-	public Employee getEmployeeByID(int EID) {
-		List<Employee> employeeList=getEmployees();
-		Employee emp = new Employee();
-		
-		for (Employee e : employeeList) {
-			if (EID == e.getID()) {
-				return e;
-			}
-		}
-	
-		return null;
-	}
-	
-	//Add delete employee method later?
+//		
+//		//This is the ENTIRE insert method - much cleaner than JDBC :)
+//		//no try/catch? well, we aren't really writing any SQL that could go wrong. Simply using sessions methods
+//		
+//
+//	public void newEmployee(Employee employee) {
+//		Transaction transaction = null;
+//		try (Session session = HibernateUtil.getSession()) {
+//			// start a transaction
+//			transaction = session.beginTransaction();
+//			// save the student object
+//			session.save(employee);
+//			// commit transaction
+//			transaction.commit();
+//		} catch (Exception e) {
+//			if (transaction != null) {
+//				transaction.rollback();
+//			}
+//			e.printStackTrace();
+//		}
+//
+//	}
+//
+//	@SuppressWarnings("unchecked")      
+//	public List<Employee> getEmployees() {
+//
+//        Session ses = HibernateUtil.getSession();
+//
+//        List<Employee> employeeList = ses.createQuery("FROM Employee").list();
+//
+//        HibernateUtil.closeSession();
+//
+//        return employeeList;
+//
+//    }
+//	
+//	public Employee findEmployeeById(int id){
+//		
+//		Session ses = HibernateUtil.getSession();
+//		
+//		Employee employee = ses.get(Employee.class, id);
+//		
+//		HibernateUtil.closeSession();
+//		
+//		return employee;
+//		
+//	}
+//	
+//	
+//	public boolean validate(String username, String password) {
+//
+//		List<Employee> employees = getEmployees();
+//		
+//		for (Employee e : employees) {
+//			if (username.equals(e.getUsername()) && 
+//				password.equals(e.getPassword())) {
+//				return true;
+//			}
+//		}
+//		
+//		return false;
+//		
+//		//Implement EmployeeDAO to do login service
+//		//Potentially loop through the whole users table to check for a match?
+//		//Potentially return an employee instead of a bool?
+//	}
+//	
+//	public Employee getEmployeeByID(int EID) {
+//		List<Employee> employeeList=getEmployees();
+//		Employee emp = new Employee();
+//		
+//		for (Employee e : employeeList) {
+//			if (EID == e.getID()) {
+//				return e;
+//			}
+//		}
+//	
+//		return null;
+//	}
+//	
+//	//Add delete employee method later?
 
 }

@@ -1,104 +1,218 @@
 package com.revature.models;
 
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "employees")
 public class Employee {
-	private int ID; //Employee ID
-	private String fname; //Self explanatory
-	private String lname;
-	private int activeTickets; //Managers can see how many tickets each employee submits
-	private int totalTickets; 
-	private int rejectedTickets;
-	private String username; //Employee login info 
-	private String password;
-	private String email; //Employee email address
-	private boolean isManager; //check to see if an employee has manager access
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "employee_id")
+    private int id;
+	
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private boolean is_manager;
 	
 	
-	public Employee(int iD, String fname, String lname, int activeTickets, int totalTickets, int rejectedTickets, String username,
-			String password, String email, boolean isManager) {
-		super();
-		ID = iD;
-		this.fname = fname;
-		this.lname = lname;
-		this.activeTickets = activeTickets;
-		this.totalTickets = totalTickets;
-		this.setRejectedTickets(rejectedTickets);
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.isManager = isManager;
-	}
-	
-	
+	@OneToMany(mappedBy="employee", fetch=FetchType.EAGER)
+	private List<Ticket> submittedTickets;
+
+
 	public Employee() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 
-	public int getID() {
-		return ID;
+	public Employee(int id, String username, String password, String firstName, String lastName, String email,
+			boolean is_manager, List<Ticket> submittedTickets) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.is_manager = is_manager;
+		this.submittedTickets = submittedTickets;
 	}
-	public void setID(int iD) {
-		ID = iD;
+
+
+	public Employee(String username, String password, String firstName, String lastName, String email,
+			boolean is_manager, List<Ticket> submittedTickets) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.is_manager = is_manager;
+		this.submittedTickets = submittedTickets;
 	}
-	public String getFname() {
-		return fname;
+
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", is_manager=" + is_manager + ", submittedTickets="
+				+ submittedTickets + "]";
 	}
-	public void setFname(String fname) {
-		this.fname = fname;
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + id;
+		result = prime * result + (is_manager ? 1231 : 1237);
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((submittedTickets == null) ? 0 : submittedTickets.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
 	}
-	public String getLname() {
-		return lname;
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (id != other.id)
+			return false;
+		if (is_manager != other.is_manager)
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (submittedTickets == null) {
+			if (other.submittedTickets != null)
+				return false;
+		} else if (!submittedTickets.equals(other.submittedTickets))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
-	public void setLname(String lname) {
-		this.lname = lname;
+
+
+	public int getId() {
+		return id;
 	}
-	public int getActiveTickets() {
-		return activeTickets;
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	public void setActiveTickets(int activeTickets) {
-		this.activeTickets = activeTickets;
-	}
-	public int getTotalTickets() {
-		return totalTickets;
-	}
-	public void setTotalTickets(int totalTickets) {
-		this.totalTickets = totalTickets;
-	}
+
+
 	public String getUsername() {
 		return username;
 	}
+
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+
 	public String getPassword() {
 		return password;
 	}
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
 	public String getEmail() {
 		return email;
 	}
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean isManager() {
-		return isManager;
-	}
-	public void setManager(boolean isManager) {
-		this.isManager = isManager;
-	}
 
 
-	public int getRejectedTickets() {
-		return rejectedTickets;
+	public boolean isIs_manager() {
+		return is_manager;
 	}
 
 
-	public void setRejectedTickets(int rejectedTickets) {
-		this.rejectedTickets = rejectedTickets;
+	public void setIs_manager(boolean is_manager) {
+		this.is_manager = is_manager;
 	}
-	
-	
+
+
+	public List<Ticket> getSubmittedTickets() {
+		return submittedTickets;
+	}
+
+
+	public void setSubmittedTickets(List<Ticket> submittedTickets) {
+		this.submittedTickets = submittedTickets;
+	}
 	
 }
