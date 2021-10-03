@@ -15,48 +15,41 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
-
 @Entity
 @Table(name = "tickets")
 public class Ticket {
-	
-	
-	
-	@Id //This makes this field the Primary Key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //This will make our PK serial
-	@Column(name = "ticket_id")
-	private int id; //Ticket ID
-	
-	@Column(name= "ticket_amount")
-    private double Amount;
-	
-    private Timestamp Submitted;
-    private Timestamp Resolved;
-    private String Description;
-    
-    
-    
-    //Assign an employee as the author of the ticket
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
-	@JoinColumn(name = "employee_id")
-    private Employee author;
-    
-	//Assign an employee as the manager of the ticket
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
-	@JoinColumn(name = "employee_id")
-    private Employee resolver;
 
-    //-1 refused, 0 not resolved, 1 acccepted
-    private int Status;
-    private String Type;
-    
-    
+	@Id // This makes this field the Primary Key
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // This will make our PK serial
+	@Column(name = "ticket_id")
+	private int id; // Ticket ID
+
+	@Column(name = "ticket_amount")
+	private double Amount;
+
+	private Timestamp Submitted;
+	private Timestamp Resolved;
+	private String Description;
+
+	// Assign an employee as the author of the ticket
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id")
+	private Employee author;
+
+	// Assign an employee as the manager of the ticket
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id")
+	private Employee resolver;
+
+	// -1 refused, 0 not resolved, 1 acccepted
+	private int Status;
+	private String Type;
+
 	public Ticket() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public Ticket(int id, double amount, Timestamp submitted, Timestamp resolved, String description, Employee author,
 			Employee resolver, int status, String type) {
 		super();
@@ -65,13 +58,11 @@ public class Ticket {
 		Submitted = submitted;
 		Resolved = resolved;
 		Description = description;
-		Author = author;
-		Resolver = resolver;
+		this.author = author;
+		this.resolver = resolver;
 		Status = status;
 		Type = type;
 	}
-
-
 
 	public Ticket(double amount, Timestamp submitted, Timestamp resolved, String description, Employee author,
 			Employee resolver, int status, String type) {
@@ -80,22 +71,21 @@ public class Ticket {
 		Submitted = submitted;
 		Resolved = resolved;
 		Description = description;
-		Author = author;
-		Resolver = resolver;
+		this.author = author;
+		this.resolver = resolver;
 		Status = status;
 		Type = type;
 	}
 
-	
-	//Call the author and resolver employees IDs and names rather than the object directly to avoid a loop from their ticket list
+	// Call the author and resolver employees IDs and names rather than the object
+	// directly to avoid a loop from their ticket list
 	@Override
 	public String toString() {
 		return "Ticket [id=" + id + ", Amount=" + Amount + ", Submitted=" + Submitted + ", Resolved=" + Resolved
-				+ ", Description= " + Description +
-				", Author ID & Name: " + Author.getId() + " " + Author.getFirstName() + " " + Author.getLastName() + 
-				", Resolved by: " + Resolver.getId() + " " + Resolver.getFirstName() + " " + Resolver.getLastName() +
-				", Status= " + Status +
-				", Type= " + Type + "]";
+				+ ", Description= " + Description + ", Author ID & Name: " + author.getId() + " "
+				+ author.getFirstName() + " " + author.getLastName() + ", Resolved by: " + resolver.getId() + " "
+				+ resolver.getFirstName() + " " + resolver.getLastName() + ", Status= " + Status + ", Type= " + Type
+				+ "]";
 	}
 
 	public int getId() {
@@ -169,10 +159,5 @@ public class Ticket {
 	public void setType(String type) {
 		Type = type;
 	}
-	
-    
-    
-    
-    
 
 }
