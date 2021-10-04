@@ -14,31 +14,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "employees")
 public class Employee {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "employee_id")
-    private int id;
-	
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private boolean is_manager;
-	
-	
-	@OneToMany(mappedBy="Author", fetch=FetchType.EAGER)
+	private int id;
+
+	private String username;
+	private String password;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private boolean is_manager;
+
+	@OneToMany(mappedBy = "Author", fetch = FetchType.EAGER)
 	private List<Ticket> submittedTickets;
 
-	@OneToMany(mappedBy="Resolver", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "Resolver", fetch = FetchType.EAGER)
 	private List<Ticket> resolvedTickets;
 
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public Employee(int id, String username, String password, String firstName, String lastName, String email,
 			boolean is_manager, List<Ticket> submittedTickets) {
@@ -53,7 +51,6 @@ public class Employee {
 		this.submittedTickets = submittedTickets;
 	}
 
-
 	public Employee(String username, String password, String firstName, String lastName, String email,
 			boolean is_manager, List<Ticket> submittedTickets) {
 		super();
@@ -66,14 +63,12 @@ public class Employee {
 		this.submittedTickets = submittedTickets;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", is_manager=" + is_manager + ", submittedTickets="
 				+ submittedTickets + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -89,7 +84,6 @@ public class Employee {
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -137,84 +131,68 @@ public class Employee {
 		return true;
 	}
 
-
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
 	public String getUsername() {
 		return username;
 	}
-
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-
 	public String getPassword() {
 		return password;
 	}
-
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
 	public String getFirstName() {
 		return firstName;
 	}
-
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-
 	public String getLastName() {
 		return lastName;
 	}
-
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
 	public boolean isIs_manager() {
 		return is_manager;
 	}
-
 
 	public void setIs_manager(boolean is_manager) {
 		this.is_manager = is_manager;
 	}
 
-
 	public List<Ticket> getSubmittedTickets() {
 		return submittedTickets;
 	}
 
-
 	public void setSubmittedTickets(List<Ticket> submittedTickets) {
 		this.submittedTickets = submittedTickets;
 	}
-	
+
 }
