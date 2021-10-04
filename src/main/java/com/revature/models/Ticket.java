@@ -15,41 +15,48 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
+
 @Entity
 @Table(name = "tickets")
 public class Ticket {
-
-	@Id // This makes this field the Primary Key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // This will make our PK serial
+	
+	
+	
+	@Id //This makes this field the Primary Key
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //This will make our PK serial
 	@Column(name = "ticket_id")
-	private int id; // Ticket ID
-
-	@Column(name = "ticket_amount")
-	private double Amount;
-
-	private Timestamp Submitted;
-	private Timestamp Resolved;
-	private String Description;
-
-	// Assign an employee as the author of the ticket
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private int id; //Ticket ID
+	
+	@Column(name= "ticket_amount")
+    private double Amount;
+	
+    private Timestamp Submitted;
+    private Timestamp Resolved;
+    private String Description;
+    
+    
+    
+    //Assign an employee as the author of the ticket
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
 	@JoinColumn(name = "employee_id")
-	private Employee author;
-
-	// Assign an employee as the manager of the ticket
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Employee Author;
+    
+	//Assign an employee as the manager of the ticket
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
 	@JoinColumn(name = "employee_id")
-	private Employee resolver;
+    private Employee Resolver;
 
-	// -1 refused, 0 not resolved, 1 acccepted
-	private int Status;
-	private String Type;
-
+    //-1 refused, 0 not resolved, 1 acccepted
+    private int Status;
+    private String Type;
+    
+    
 	public Ticket() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public Ticket(int id, double amount, Timestamp submitted, Timestamp resolved, String description, Employee author,
 			Employee resolver, int status, String type) {
 		super();
@@ -58,11 +65,13 @@ public class Ticket {
 		Submitted = submitted;
 		Resolved = resolved;
 		Description = description;
-		this.author = author;
-		this.resolver = resolver;
+		Author = author;
+		Resolver = resolver;
 		Status = status;
 		Type = type;
 	}
+
+
 
 	public Ticket(double amount, Timestamp submitted, Timestamp resolved, String description, Employee author,
 			Employee resolver, int status, String type) {
@@ -71,21 +80,86 @@ public class Ticket {
 		Submitted = submitted;
 		Resolved = resolved;
 		Description = description;
-		this.author = author;
-		this.resolver = resolver;
+		Author = author;
+		Resolver = resolver;
 		Status = status;
 		Type = type;
 	}
 
-	// Call the author and resolver employees IDs and names rather than the object
-	// directly to avoid a loop from their ticket list
 	@Override
 	public String toString() {
 		return "Ticket [id=" + id + ", Amount=" + Amount + ", Submitted=" + Submitted + ", Resolved=" + Resolved
-				+ ", Description= " + Description + ", Author ID & Name: " + author.getId() + " "
-				+ author.getFirstName() + " " + author.getLastName() + ", Resolved by: " + resolver.getId() + " "
-				+ resolver.getFirstName() + " " + resolver.getLastName() + ", Status= " + Status + ", Type= " + Type
-				+ "]";
+				+ ", Description= " + Description +
+				", Author ID & Name: " + Author.getId() + " " + Author.getFirstName() + " " + Author.getLastName() + 
+				", Resolved by: " + Resolver.getId() + " " + Resolver.getFirstName() + " " + Resolver.getLastName() +
+				", Status= " + Status +
+				", Type= " + Type + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(Amount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((Author == null) ? 0 : Author.hashCode());
+		result = prime * result + ((Description == null) ? 0 : Description.hashCode());
+		result = prime * result + ((Resolved == null) ? 0 : Resolved.hashCode());
+		result = prime * result + ((Resolver == null) ? 0 : Resolver.hashCode());
+		result = prime * result + Status;
+		result = prime * result + ((Submitted == null) ? 0 : Submitted.hashCode());
+		result = prime * result + ((Type == null) ? 0 : Type.hashCode());
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ticket other = (Ticket) obj;
+		if (Double.doubleToLongBits(Amount) != Double.doubleToLongBits(other.Amount))
+			return false;
+		if (Author == null) {
+			if (other.Author != null)
+				return false;
+		} else if (!Author.equals(other.Author))
+			return false;
+		if (Description == null) {
+			if (other.Description != null)
+				return false;
+		} else if (!Description.equals(other.Description))
+			return false;
+		if (Resolved == null) {
+			if (other.Resolved != null)
+				return false;
+		} else if (!Resolved.equals(other.Resolved))
+			return false;
+		if (Resolver == null) {
+			if (other.Resolver != null)
+				return false;
+		} else if (!Resolver.equals(other.Resolver))
+			return false;
+		if (Status != other.Status)
+			return false;
+		if (Submitted == null) {
+			if (other.Submitted != null)
+				return false;
+		} else if (!Submitted.equals(other.Submitted))
+			return false;
+		if (Type == null) {
+			if (other.Type != null)
+				return false;
+		} else if (!Type.equals(other.Type))
+			return false;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 	public int getId() {
@@ -129,19 +203,19 @@ public class Ticket {
 	}
 
 	public Employee getAuthor() {
-		return author;
+		return Author;
 	}
 
 	public void setAuthor(Employee author) {
-		this.author = author;
+		Author = author;
 	}
 
 	public Employee getResolver() {
-		return resolver;
+		return Resolver;
 	}
 
 	public void setResolver(Employee resolver) {
-		this.resolver = resolver;
+		Resolver = resolver;
 	}
 
 	public int getStatus() {
@@ -159,5 +233,10 @@ public class Ticket {
 	public void setType(String type) {
 		Type = type;
 	}
+	
+    
+    
+    
+    
 
 }
