@@ -26,7 +26,7 @@ public class Ticket {
 	@Id //This makes this field the Primary Key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //This will make our PK serial
 	@Column(name = "ticket_id")
-	private int id; //Ticket ID
+	private int TID; //Ticket ID
 	
 	@Column(name= "ticket_amount")
     private double Amount;
@@ -62,7 +62,7 @@ public class Ticket {
 	public Ticket(int id, double amount, Timestamp submitted, Timestamp resolved, String description, Employee author,
 			Employee resolver, int status, String type) {
 		super();
-		this.id = id;
+		this.TID = id;
 		Amount = amount;
 		Submitted = submitted;
 		Resolved = resolved;
@@ -90,7 +90,7 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [id=" + id + ", Amount=" + Amount + ", Submitted=" + Submitted + ", Resolved=" + Resolved
+		return "Ticket [id=" + TID + ", Amount=" + Amount + ", Submitted=" + Submitted + ", Resolved=" + Resolved
 				+ ", Description= " + Description +
 				", Author ID & Name: " + Author.getId() + " " + Author.getFirstName() + " " + Author.getLastName() + 
 				", Resolved by: " + Resolver.getId() + " " + Resolver.getFirstName() + " " + Resolver.getLastName() +
@@ -112,7 +112,7 @@ public class Ticket {
 		result = prime * result + Status;
 		result = prime * result + ((Submitted == null) ? 0 : Submitted.hashCode());
 		result = prime * result + ((Type == null) ? 0 : Type.hashCode());
-		result = prime * result + id;
+		result = prime * result + TID;
 		return result;
 	}
 
@@ -159,17 +159,17 @@ public class Ticket {
 				return false;
 		} else if (!Type.equals(other.Type))
 			return false;
-		if (id != other.id)
+		if (TID != other.TID)
 			return false;
 		return true;
 	}
 
 	public int getId() {
-		return id;
+		return TID;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.TID = id;
 	}
 
 	public double getAmount() {

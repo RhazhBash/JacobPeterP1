@@ -22,10 +22,10 @@ public class Employee {
 
 	private String username;
 	private String password;
-	private String firstName;
-	private String lastName;
+	private String fName;
+	private String lName;
 	private String email;
-	private boolean is_manager;
+	private boolean isManager;
 
 	@OneToMany(mappedBy = "Author", fetch = FetchType.EAGER)
 	private List<Ticket> submittedTickets;
@@ -44,10 +44,10 @@ public class Employee {
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fName = firstName;
+		this.lName = lastName;
 		this.email = email;
-		this.is_manager = is_manager;
+		this.isManager = is_manager;
 		this.submittedTickets = submittedTickets;
 	}
 
@@ -56,17 +56,17 @@ public class Employee {
 		super();
 		this.username = username;
 		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fName = firstName;
+		this.lName = lastName;
 		this.email = email;
-		this.is_manager = is_manager;
+		this.isManager = is_manager;
 		this.submittedTickets = submittedTickets;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", is_manager=" + is_manager + ", submittedTickets="
+		return "Employee [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + fName
+				+ ", lastName=" + lName + ", email=" + email + ", is_manager=" + isManager + ", submittedTickets="
 				+ submittedTickets + "]";
 	}
 
@@ -75,10 +75,10 @@ public class Employee {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((fName == null) ? 0 : fName.hashCode());
 		result = prime * result + id;
-		result = prime * result + (is_manager ? 1231 : 1237);
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + (isManager ? 1231 : 1237);
+		result = prime * result + ((lName == null) ? 0 : lName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((submittedTickets == null) ? 0 : submittedTickets.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
@@ -99,19 +99,19 @@ public class Employee {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
+		if (fName == null) {
+			if (other.fName != null)
 				return false;
-		} else if (!firstName.equals(other.firstName))
+		} else if (!fName.equals(other.fName))
 			return false;
 		if (id != other.id)
 			return false;
-		if (is_manager != other.is_manager)
+		if (isManager != other.isManager)
 			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
+		if (lName == null) {
+			if (other.lName != null)
 				return false;
-		} else if (!lastName.equals(other.lastName))
+		} else if (!lName.equals(other.lName))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -156,19 +156,19 @@ public class Employee {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return fName;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.fName = firstName;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lName;
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lName = lastName;
 	}
 
 	public String getEmail() {
@@ -180,11 +180,11 @@ public class Employee {
 	}
 
 	public boolean isIs_manager() {
-		return is_manager;
+		return isManager;
 	}
 
 	public void setIs_manager(boolean is_manager) {
-		this.is_manager = is_manager;
+		this.isManager = is_manager;
 	}
 
 	public List<Ticket> getSubmittedTickets() {

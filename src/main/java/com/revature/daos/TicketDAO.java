@@ -96,7 +96,7 @@ public class TicketDAO implements TicketDAOInterface {
 		Session ses = HibernateUtil.getSession();
 		Transaction tran = ses.beginTransaction();
 		
-		String HQL = "UPDATE Ticket SET status = 'Accepted' WHERE id = " + TID;
+		String HQL = "UPDATE Ticket SET status = '1' WHERE id = " + TID;
 		
 		Query q = ses.createQuery(HQL);
 		
@@ -115,7 +115,7 @@ public class TicketDAO implements TicketDAOInterface {
 		Session ses = HibernateUtil.getSession();
 		Transaction tran = ses.beginTransaction();
 		
-		String HQL = "UPDATE Ticket SET status = 'Denied' WHERE id = " + TID;
+		String HQL = "UPDATE Ticket SET status = '-1' WHERE id = " + TID;
 		
 		Query q = (Query) ses.createQuery(HQL);
 		
