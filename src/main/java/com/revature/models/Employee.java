@@ -28,10 +28,10 @@ public class Employee {
     private boolean is_manager;
 	
 	
-	@OneToMany(mappedBy="author", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="Author", fetch=FetchType.EAGER)
 	private List<Ticket> submittedTickets;
 
-	@OneToMany(mappedBy="resolver", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="Resolver", fetch=FetchType.EAGER)
 	private List<Ticket> resolvedTickets;
 
 	public Employee() {
