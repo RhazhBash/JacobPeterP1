@@ -31,6 +31,8 @@ public class Ticket {
 	@Column(name= "ticket_amount")
     private double Amount;
 	
+	//private static final SimpleDateFormat timeSubmitted=new SimpleDateFormat("MM.dd.yyyy.HH.mm.ss"); //Timestamps for opening/closing a ticket
+	//private static final SimpleDateFormat timeClosed=new SimpleDateFormat("MM.dd.yyyy.HH.mm.ss");
     private Timestamp Submitted;
     private Timestamp Resolved;
     private String Description;
