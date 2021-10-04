@@ -34,14 +34,15 @@ public class TicketDAO implements TicketDAOInterface {
 		for (int i=0; i<ticketList.size(); i++) {
 			
 			Ticket temp=ticketList.get(i);
-			String status=temp.getStatus();
-			if (status.equals("Active"))
+			int status=temp.getStatus();
+			if (status==0)
 				activeTickets.add(temp);
 		}
 		
 		return activeTickets;
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public List<Ticket> getTicketByEmployee(int EID) {
 		
@@ -52,7 +53,7 @@ public class TicketDAO implements TicketDAOInterface {
 		for (int i=0; i<ticketList.size(); i++) {
 			
 			Ticket temp=ticketList.get(i);
-			if (EID==temp.getEID())
+			if (EID==temp.getAuthor().getId())
 				employeeTickets.add(temp);
 		}
 		
@@ -70,8 +71,8 @@ public class TicketDAO implements TicketDAOInterface {
 		for (int i=0; i<ticketList.size(); i++) {
 			
 			Ticket temp=ticketList.get(i);
-			String status=temp.getStatus();
-			if (status.equals("Active")&&temp.getEID()==EID)
+			int status=temp.getStatus();
+			if (status==0&&temp.getAuthor().getId()==EID)
 				activeTickets.add(temp);
 		}
 		

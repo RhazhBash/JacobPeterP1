@@ -69,7 +69,7 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 		for (int i=0; i<employeeList.size(); i++) {
 			
 			Employee temp=employeeList.get(i);
-			int ID=temp.getID();
+			int ID=temp.getId();
 			if (ID==EID)
 				return temp;
 		}
