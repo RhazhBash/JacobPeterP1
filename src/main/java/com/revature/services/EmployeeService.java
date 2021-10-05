@@ -15,4 +15,12 @@ public class EmployeeService {
 	public Employee getEmployeeById(int ID) {
 		return EDAO.getEmployeeByID(ID);
 	}
+	
+	public void hireEmployee(Employee employee) {
+		
+	}
+	
+	public void fireEmployee(int id) {
+		EDAO.youreFired(id);
+	}
 }
