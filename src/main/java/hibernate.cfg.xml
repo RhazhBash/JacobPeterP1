@@ -15,7 +15,6 @@
 		<property name="hibernate.default_schema">project1</property>
 		<mapping class="com.revature.models.Ticket"/>
 		<mapping class="com.revature.models.Employee"/>
-		<mapping class="com.revature.models.Manager"/>
 
     </session-factory>
 </hibernate-configuration>

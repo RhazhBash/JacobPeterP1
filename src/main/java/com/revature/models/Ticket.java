@@ -90,12 +90,18 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [id=" + TID + ", Amount=" + Amount + ", Submitted=" + Submitted + ", Resolved=" + Resolved
-				+ ", Description= " + Description +
-				", Author ID & Name: " + Author.getId() + " " + Author.getFirstName() + " " + Author.getLastName() + 
-				", Resolved by: " + Resolver.getId() + " " + Resolver.getFirstName() + " " + Resolver.getLastName() +
-				", Status= " + Status +
+		String base =  "Ticket [id=" + TID + ", Amount=" + Amount + ", Submitted=" + Submitted + ", Resolved=" + Resolved
+				+ ", Description= " + Description + 
+				", Author ID & Name: " + Author.getId() + " " + Author.getFirstName() + " " + Author.getLastName();
+		
+		//checks for resolution to prevent null exception
+		if (this.Resolver != null) {
+			base +=" Resolved by: " + Resolver.getId() + " " + Resolver.getFirstName() + " " + Resolver.getLastName();
+		}
+		base += ", Status= " + Status +
 				", Type= " + Type + "]";
+		
+		return base;
 	}
 
 	@Override

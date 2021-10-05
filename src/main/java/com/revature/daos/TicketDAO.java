@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.revature.models.Employee;
 import com.revature.models.Ticket;
 import com.revature.utils.HibernateUtil;
 
@@ -81,6 +82,12 @@ public class TicketDAO implements TicketDAOInterface {
 
 	@Override
 	public void newTicket(Ticket newTicket) {
+		
+		Employee emp = newTicket.getAuthor();
+		
+		List<Ticket> ticketList=getTicketByEmployee(emp.getId()); 
+		
+		ticketList.add(newTicket);
 		
 		Session ses = HibernateUtil.getSession(); 
 		
