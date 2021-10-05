@@ -49,7 +49,7 @@ public class Ticket {
 	@JoinColumn(name = "employee_id")
     private Employee Resolver;
 
-    //-1 refused, 0 not resolved, 1 acccepted
+    //-1 refused, 0 not resolved, 1 accepted
     private int Status;
     private String Type;
     

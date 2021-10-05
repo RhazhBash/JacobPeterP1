@@ -56,6 +56,16 @@ public class EmployeeController {
 			ctx.status(403); 
 		}
 		};
+		
+		public Handler hireEmployeeHandler = (ctx) -> {
+			
+			
+		};
+		
+		public Handler fireEmployeeHandler = (ctx) -> {
+			
+			
+		};
 	
 	
 	//Add employee?

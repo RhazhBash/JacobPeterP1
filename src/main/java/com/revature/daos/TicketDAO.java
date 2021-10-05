@@ -85,13 +85,14 @@ public class TicketDAO implements TicketDAOInterface {
 		
 		Employee emp = newTicket.getAuthor();
 		
-		List<Ticket> ticketList=getTicketByEmployee(emp.getId()); 
+		List<Ticket> submittedTickets=getTicketByEmployee(emp.getId()); 
 		
-		ticketList.add(newTicket);
+		submittedTickets.add(newTicket);
 		
 		Session ses = HibernateUtil.getSession(); 
 		
 		ses.save(newTicket); 
+		ses.save(submittedTickets);
 		
 		HibernateUtil.closeSession();
 		
