@@ -28,6 +28,6 @@ public class TicketService {
 	}
 	
 	public void newTicket(Ticket ticket) {
-		newTicket(ticket);
+		TDAO.newTicket(ticket);
 	}
 }

@@ -1,8 +1,12 @@
 package com.revature.controllers;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Date;
 
 import com.google.gson.Gson;
+import com.revature.daos.EmployeeDAO;
+import com.revature.models.Employee;
 import com.revature.models.Ticket;
 import com.revature.services.TicketService;
 
@@ -100,8 +104,23 @@ public class TicketController {
 		}
 		};
 		
+		//Pass the following from the front end to this handler
+		//Amount, description, author, resolver, type
 		public Handler newTicketHandler = (ctx) -> {
 			if(ctx.req.getSession(false) != null) {
+				EmployeeDAO EDAO=new EmployeeDAO();
+				Timestamp tstmp = null;
+				Employee resolver = null;
+				Date date=new Date();
+				
+				double amount=Double.parseDouble(ctx.formParam("amount"));
+				
+				int id=Integer.parseInt(ctx.formParam("id"));
+				
+				Employee author=EDAO.getEmployeeByID(id);
+				
+				Ticket ticket = new Ticket(amount, new Timestamp(date.getTime()), tstmp, ctx.formParam("description"), author, resolver, 0, ctx.formParam("type"));
+				TS.newTicket(ticket);
 				
 			}
 			else {

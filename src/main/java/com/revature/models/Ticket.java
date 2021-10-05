@@ -63,14 +63,14 @@ public class Ticket {
 			Employee resolver, int status, String type) {
 		super();
 		this.TID = id;
-		Amount = amount;
-		Submitted = submitted;
-		Resolved = resolved;
-		Description = description;
-		Author = author;
-		Resolver = resolver;
-		Status = status;
-		Type = type;
+		this.Amount = amount;
+		this.Submitted = submitted;
+		this.Resolved = resolved;
+		this.Description = description;
+		this.Author = author;
+		this.Resolver = resolver;
+		this.Status = status;
+		this.Type = type;
 	}
 
 
@@ -78,14 +78,14 @@ public class Ticket {
 	public Ticket(double amount, Timestamp submitted, Timestamp resolved, String description, Employee author,
 			Employee resolver, int status, String type) {
 		super();
-		Amount = amount;
-		Submitted = submitted;
-		Resolved = resolved;
-		Description = description;
-		Author = author;
-		Resolver = resolver;
-		Status = status;
-		Type = type;
+		this.Amount = amount;
+		this.Submitted = submitted;
+		this.Resolved = resolved;
+		this.Description = description;
+		this.Author = author;
+		this.Resolver = resolver;
+		this.Status = status;
+		this.Type = type;
 	}
 
 	@Override
