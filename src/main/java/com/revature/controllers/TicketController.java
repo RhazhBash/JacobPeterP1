@@ -9,11 +9,13 @@ import com.revature.daos.EmployeeDAO;
 import com.revature.models.Employee;
 import com.revature.models.Ticket;
 import com.revature.services.TicketService;
+import com.revature.services.EmployeeService;
 
 import io.javalin.http.Handler;
 
 public class TicketController {
 	TicketService TS = new TicketService();
+	EmployeeService ES = new EmployeeService();
 	
 	public Handler getAllTicketsHandler = (ctx) -> {
 		
@@ -38,7 +40,7 @@ public class TicketController {
 	
 	public Handler getActiveTicketsHandler = (ctx) -> {
 		
-		if(ctx.req.getSession(false) != null) {
+		//if(ctx.req.getSession(false) != null) {
 			
 			List<Ticket> activeTickets = TS.getActiveTickets();
 			
@@ -49,20 +51,20 @@ public class TicketController {
 			ctx.result(JSONTickets); 
 		
 			ctx.status(200); 
-		}
+		//}
 		
-		else {
-			ctx.status(403); 
-		}
+		//else {
+		//	ctx.status(403); 
+		//}
 		};
 		
 	public Handler getActiveTicketsByEmployeeHandler = (ctx) -> {
 			
-		if(ctx.req.getSession(false) != null) {
+		//if(ctx.req.getSession(false) != null) {
 			
-			String Employee = ctx.formParam("EID");
-			
-			int EID = Integer.parseInt(Employee);
+			String Employee = ctx.queryParam("EID");
+			System.out.println(Employee);
+			int EID = Integer.valueOf(Employee);
 				
 			List<Ticket> activeTicketsByEmployee = TS.getActiveTicketsByEmployee(EID); 
 				
@@ -73,20 +75,20 @@ public class TicketController {
 			ctx.result(JSONTickets); 
 			
 			ctx.status(200); 
-		}
+		//}
 			
-		else {
-			ctx.status(403); 
-		}
+		//else {
+		//	ctx.status(403); 
+		//}
 		};
 		
 	public Handler getTicketsByEmployeeHandler = (ctx) -> {
 			
-		if(ctx.req.getSession(false) != null) {
+		//if(ctx.req.getSession(false) != null) {
 				
-			String Employee = ctx.formParam("EID");
-				
-			int EID = Integer.parseInt(Employee);
+			String Employee = ctx.queryParam("EID");
+			//System.out.println(Employee);
+			int EID = Integer.valueOf(Employee);
 					
 			List<Ticket> ticketsByEmployee = TS.getTicketsByEmployee(EID); 
 					
@@ -97,17 +99,17 @@ public class TicketController {
 			ctx.result(JSONTickets); 
 				
 			ctx.status(200); 
-		}
+		//}
 				
-		else {
-			ctx.status(403); 
-		}
+		//else {
+		//	ctx.status(403); 
+		//}
 		};
 		
 		//The body of the post request should look like this
 		//{"Amount":<Money requested>, "Description":"<User inputed message>", "Status":"0", "Type":"<Chosen from 4 options>", "Author":{"id":<Employee ID>}}
 		public Handler newTicketHandler = (ctx) -> {
-			if(ctx.req.getSession(false) != null) {
+			//if(ctx.req.getSession(false) != null) {
 				
 				String body=ctx.body();
 				Date newDate=new Date();
@@ -118,13 +120,30 @@ public class TicketController {
 				long date=newDate.getTime();
 				Timestamp tstmp=new Timestamp(date);
 				ticket.setSubmitted(tstmp);
+				Employee emp=ES.getEmployeeById(ticket.getAuthor().getId());
+	
+				//ES.incrementTickets(emp);
+			
+				ticket.setAuthor(emp);
+				
 				
 				TS.newTicket(ticket);
+				
 				ctx.status(200);
  
-			}
-			else {
-				ctx.status(403);
-			}
+			//}
+			//else {
+			//	ctx.status(403);
+			//}
+		};
+		public Handler approveTicketHandler = (ctx) -> {
+			String TID = ctx.queryParam("TID");
+			int ID = Integer.valueOf(TID);
+			TS.approveTicket(ID);
+		};
+		public Handler denyTicketHandler = (ctx) -> {
+			String TID = ctx.queryParam("TID");
+			int ID = Integer.valueOf(TID);
+			TS.denyTicket(ID);
 		};
 }

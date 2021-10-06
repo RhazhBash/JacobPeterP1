@@ -35,7 +35,6 @@ public class Employee {
 
 	public Employee() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Employee(int id, String username, String password, String firstName, String lastName, String email,
@@ -181,7 +180,7 @@ public class Employee {
 		this.email = email;
 	}
 
-	public boolean isIs_manager() {
+	public boolean getis_manager() {
 		return isManager;
 	}
 
@@ -198,11 +197,25 @@ public class Employee {
 	}
 	
 	public int getRejectedTickets() {
-		return submittedTickets;
+		return rejectedTickets;
 	}
 
 	public void setRejectededTickets(int rejectedTickets) {
 		this.rejectedTickets = rejectedTickets;
+	}
+	
+	public Employee incrementSubmitted(Employee emp) {
+		int i=emp.getSubmittedTickets();
+		i++;
+		emp.setSubmittedTickets(i);
+		return emp;
+	}
+	
+	public Employee incrementRejected(Employee emp) {
+		int i=emp.getRejectedTickets();
+		i++;
+		emp.setRejectededTickets(i);
+		return emp;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -29,5 +30,13 @@ public class TicketService {
 	
 	public void newTicket(Ticket ticket) {
 		TDAO.newTicket(ticket);
+	}
+	
+	public void approveTicket(int id) {
+		TDAO.acceptTicket(id);
+	}
+	
+	public void denyTicket(int id) {
+		TDAO.denyTicket(id);
 	}
 }

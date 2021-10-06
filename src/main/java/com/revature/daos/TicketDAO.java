@@ -1,5 +1,6 @@
 package com.revature.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -30,7 +31,7 @@ public class TicketDAO implements TicketDAOInterface {
 		
 		//Gets the full list of tickets and sorts active ones into a separate list
 		List<Ticket> ticketList=getTickets();
-		List<Ticket> activeTickets = null;
+		ArrayList<Ticket> activeTickets = new ArrayList<Ticket>();
 		
 		for (int i=0; i<ticketList.size(); i++) {
 			
@@ -43,19 +44,20 @@ public class TicketDAO implements TicketDAOInterface {
 		return activeTickets;
 	}
 
-	@SuppressWarnings("null")
+
 	@Override
 	public List<Ticket> getTicketByEmployee(int EID) {
 		
 		//Same code as getActiveTickets except it sorts by employee ID
 		List<Ticket> ticketList=getTickets();
-		List<Ticket> employeeTickets = null;
+		ArrayList<Ticket> employeeTickets = new ArrayList<Ticket>();
+		
 		
 		for (int i=0; i<ticketList.size(); i++) {
 			
 			Ticket temp=ticketList.get(i);
 			if (EID==temp.getAuthor().getId())
-				employeeTickets.add(temp);
+					employeeTickets.add(temp);
 		}
 		
 		return employeeTickets;
@@ -67,7 +69,7 @@ public class TicketDAO implements TicketDAOInterface {
 		
 		//Combines the two methods above
 		List<Ticket> ticketList=getTickets();
-		List<Ticket> activeTickets = null;
+		ArrayList<Ticket> activeTickets = new ArrayList<Ticket>();
 		
 		for (int i=0; i<ticketList.size(); i++) {
 			
@@ -83,18 +85,22 @@ public class TicketDAO implements TicketDAOInterface {
 	@Override
 	public void newTicket(Ticket newTicket) {
 		
-		Employee emp = newTicket.getAuthor();
+		//System.out.println(newTicket.getAuthor().getSubmittedTickets());
 		
-		//List<Ticket> submittedTickets=getTicketByEmployee(emp.getId()); 
-		
-		//submittedTickets.add(newTicket);
+		//Employee emp = newTicket.getAuthor();
+		//System.out.println(emp);
 		
 		Session ses = HibernateUtil.getSession(); 
 		
+		//ses.update(emp);
 		ses.save(newTicket); 
 		//ses.save(submittedTickets);
 		
 		HibernateUtil.closeSession();
+		
+		/*Session ses2 = HibernateUtil.getSession();
+		ses2.update(emp);
+		HibernateUtil.closeSession();*/
 		
 	}
 

@@ -28,13 +28,15 @@ public class Launcher {
 		
 		
 		app.get("/tickets", TC.getAllTicketsHandler);
-		app.get("/tickets/:id", TC.getTicketsByEmployeeHandler);
+		app.get("/tickets/employee", TC.getTicketsByEmployeeHandler);
 		app.get("/tickets/active", TC.getActiveTicketsHandler);
-		app.get("/tickets/active/:id", TC.getActiveTicketsByEmployeeHandler);
+		app.get("/tickets/active/employee", TC.getActiveTicketsByEmployeeHandler);
+		app.post("/tickets/approve", TC.approveTicketHandler);
+		app.post("/tickets/deny", TC.denyTicketHandler);
 		app.post("/tickets/new", TC.newTicketHandler);
 		app.post("/login", LC.loginHandler);
 		app.get("/employees", EC.getAllEmployeesHandler);
-		app.get("/employees/:id", EC.getEmployeeByIdHandler);
+		app.get("/employees/id", EC.getEmployeeByIdHandler);
 
 	}
 	

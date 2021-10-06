@@ -16,6 +16,11 @@ public class EmployeeService {
 		return EDAO.getEmployeeByID(ID);
 	}
 	
+	public Employee incrementTickets(Employee emp) {
+		emp.incrementSubmitted(emp);
+		return emp;
+	}
+	
 	public void hireEmployee(Employee employee) {
 		
 	}
