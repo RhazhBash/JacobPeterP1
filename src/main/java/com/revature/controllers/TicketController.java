@@ -17,7 +17,7 @@ public class TicketController {
 	
 	public Handler getAllTicketsHandler = (ctx) -> {
 		
-		if(ctx.req.getSession(false) != null) {
+		//if(ctx.req.getSession(false) != null) {
 		
 			List<Ticket> Tickets = TS.getTickets();
 		
@@ -28,11 +28,11 @@ public class TicketController {
 			ctx.result(JSONTickets); 
 		
 			ctx.status(200); 
-		}
+	//	}
 		
-		else {
-			ctx.status(403); 
-		}
+		//else {
+		//	ctx.status(403); 
+		//}
 		
 	};
 	
@@ -104,29 +104,27 @@ public class TicketController {
 		}
 		};
 		
-		//Pass the following from the front end to this handler
-		//Amount, description, author, resolver, type
+		//The body of the post request should look like this
+		//{"Amount":<Money requested>, "Description":"<User inputed message>", "Status":"0", "Type":"<Chosen from 4 options>", "Author":{"id":<Employee ID>}}
 		public Handler newTicketHandler = (ctx) -> {
 			if(ctx.req.getSession(false) != null) {
-				EmployeeDAO EDAO=new EmployeeDAO();
-				Timestamp tstmp = null;
-				Employee resolver = null;
-				Date date=new Date();
 				
-				double amount=Double.parseDouble(ctx.formParam("amount"));
+				String body=ctx.body();
+				Date newDate=new Date();
+				Gson gson=new Gson();
 				
-				int id=Integer.parseInt(ctx.formParam("id"));
+				Ticket ticket=gson.fromJson(body, Ticket.class);
 				
-				Employee author=EDAO.getEmployeeByID(id);
+				long date=newDate.getTime();
+				Timestamp tstmp=new Timestamp(date);
+				ticket.setSubmitted(tstmp);
 				
-				Ticket ticket = new Ticket(amount, new Timestamp(date.getTime()), tstmp, ctx.formParam("description"), author, resolver, 0, ctx.formParam("type"));
 				TS.newTicket(ticket);
-				
+				ctx.status(200);
+ 
 			}
 			else {
 				ctx.status(403);
 			}
 		};
-			
-			
 }

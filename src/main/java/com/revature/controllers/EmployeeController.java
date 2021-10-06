@@ -64,12 +64,10 @@ public class EmployeeController {
 			
 			if(ctx.req.getSession(false) != null) {
 				EmployeeDAO EDAO=new EmployeeDAO();
-	
-				List<Ticket> tickets=null;
 				
 				int id=Integer.parseInt(ctx.formParam("id"));
 
-				Employee emp = new Employee(ctx.formParam("username"), ctx.formParam("password"), ctx.formParam("fname"), ctx.formParam("lname"), ctx.formParam("email"), false, tickets);
+				Employee emp = new Employee(ctx.formParam("username"), ctx.formParam("password"), ctx.formParam("fname"), ctx.formParam("lname"), ctx.formParam("email"), false, 0);
 				ES.hireEmployee(emp);
 				
 			}

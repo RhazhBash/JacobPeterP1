@@ -41,12 +41,12 @@ public class Ticket {
     
     //Assign an employee as the author of the ticket
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
-	@JoinColumn(name = "employee_id")
+	@JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee Author;
     
 	//Assign an employee as the manager of the ticket
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
-	@JoinColumn(name = "employee_id")
+	@JoinColumn(name = "resolver_id", referencedColumnName = "employee_id")
     private Employee Resolver;
 
     //-1 refused, 0 not resolved, 1 accepted

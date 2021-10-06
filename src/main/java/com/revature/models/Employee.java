@@ -27,11 +27,11 @@ public class Employee {
 	private String email;
 	private boolean isManager;
 
-	@OneToMany(mappedBy = "Author", fetch = FetchType.EAGER)
-	private List<Ticket> submittedTickets;
+	
+	private int submittedTickets;
 
-	@OneToMany(mappedBy = "Resolver", fetch = FetchType.EAGER)
-	private List<Ticket> resolvedTickets;
+	
+	private int rejectedTickets;
 
 	public Employee() {
 		super();
@@ -39,7 +39,7 @@ public class Employee {
 	}
 
 	public Employee(int id, String username, String password, String firstName, String lastName, String email,
-			boolean is_manager, List<Ticket> submittedTickets) {
+			boolean is_manager, int submittedTickets) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -52,7 +52,7 @@ public class Employee {
 	}
 
 	public Employee(String username, String password, String firstName, String lastName, String email,
-			boolean is_manager, List<Ticket> submittedTickets) {
+			boolean is_manager, int submittedTickets) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -70,6 +70,8 @@ public class Employee {
 				+ submittedTickets + "]";
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -80,7 +82,8 @@ public class Employee {
 		result = prime * result + (isManager ? 1231 : 1237);
 		result = prime * result + ((lName == null) ? 0 : lName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((submittedTickets == null) ? 0 : submittedTickets.hashCode());
+		result = prime * result + rejectedTickets;
+		result = prime * result + submittedTickets;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -118,10 +121,9 @@ public class Employee {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (submittedTickets == null) {
-			if (other.submittedTickets != null)
-				return false;
-		} else if (!submittedTickets.equals(other.submittedTickets))
+		if (rejectedTickets != other.rejectedTickets)
+			return false;
+		if (submittedTickets != other.submittedTickets)
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -187,12 +189,20 @@ public class Employee {
 		this.isManager = is_manager;
 	}
 
-	public List<Ticket> getSubmittedTickets() {
+	public int getSubmittedTickets() {
 		return submittedTickets;
 	}
 
-	public void setSubmittedTickets(List<Ticket> submittedTickets) {
+	public void setSubmittedTickets(int submittedTickets) {
 		this.submittedTickets = submittedTickets;
+	}
+	
+	public int getRejectedTickets() {
+		return submittedTickets;
+	}
+
+	public void setRejectededTickets(int rejectedTickets) {
+		this.rejectedTickets = rejectedTickets;
 	}
 
 }
