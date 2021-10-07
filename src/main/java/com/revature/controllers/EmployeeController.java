@@ -17,7 +17,7 @@ public class EmployeeController {
 	
 	public Handler getAllEmployeesHandler = (ctx) -> {
 		
-		//if(ctx.req.getSession(false) != null) {
+		if(ctx.req.getSession(false) != null) {
 		
 			List<Employee> Employees = ES.getAllEmployees();
 		
@@ -28,11 +28,11 @@ public class EmployeeController {
 			ctx.result(JSONEmployees); 
 		
 			ctx.status(200); 
-		//}
+		}
 		
-		//else {
-		//	ctx.status(403); 
-		//}
+		else {
+			ctx.status(403); 
+		}
 		
 	};
 	

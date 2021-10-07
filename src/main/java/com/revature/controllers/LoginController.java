@@ -13,6 +13,8 @@ public class LoginController {
 
 	public Handler loginHandler = (ctx) -> {
 		
+		//Body of the post request should look like this
+		//{"username":<user submitted input>, "password":"<User submitted input>"}
 		String body = ctx.body(); 
 		
 		Gson gson = new Gson();
