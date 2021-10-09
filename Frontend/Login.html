@@ -20,6 +20,38 @@
         <button id="loginButton" class="btn btn-success col-sm-4">Login</button> 
     </div>
 
+    <br>
+    <br>
+
+    <!--I want a table that will display all my Avenger information when it comes back from the server-->
+    <div id="table-row" class="row">
+        <!--Then we need rows inside the container to organize the data-->
+        <table id="ticketTable" class="table table-hover table-bordered table-dark">
+            <thead id="ticketHead">
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>Amount</th>
+                    <th>Time Submitted</th>
+                    <th>Time Resolved</th>
+                    <th>Description</th>
+                    <th>Author</th>
+                    <th>Resolver</th>
+                    <th>Status</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody id="ticketBody">
+                <!--We'll leave this blank: it will be filled by our JS when data comes in-->
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <br>
+
+    <button id="getTicketsButton" class="btn btn-dark">Get Tickets:</button>
+
+
    </div>
    <script src="login.js"></script>
 </body>

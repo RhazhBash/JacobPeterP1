@@ -3,7 +3,82 @@ const url = "http://localhost:8090/" //putting our base URL in a variable for cl
 
 //add functionality to our buttons using a eventlisteners
 //so when these buttons gets clicked, the appropriate function will be called
+document.getElementById("getTicketsButton").addEventListener("click", ticketsFunc);
 document.getElementById("loginButton").addEventListener("click", loginFunc);
+
+async function ticketsFunc() { //async returns a promise (which fetch returns)
+
+    //we will send a fetch request to get our avenger data
+    //we need to include {credentials: "include"} in order to make use of the user's cookie
+    let response = await fetch(url + "tickets", {credentials: "include"});
+
+    console.log(response);
+
+    if(response.status === 200) { //if the request comes back successful...
+
+        let data = await response.json(); //get the JSON data, turn it into a JS object
+
+        //For every Ticket object we get back, put it in the table
+        for(let ticket of data){
+
+            let row = document.createElement("tr"); //create a table row
+
+            let cell = document.createElement("td"); //create a cell for the field
+            cell.innerHTML = ticket.TID; //fill the cell with the appropriate avenger data
+            row.appendChild(cell); //add the td element (cell) to the tr element (row)
+
+            //then we do this ^ for every field in the avenger model
+            let cell2 = document.createElement("td"); 
+            cell2.innerHTML = ticket.Amount; 
+            row.appendChild(cell2);
+
+            let cell3 = document.createElement("td"); 
+            cell3.innerHTML = ticket.Submitted; 
+            row.appendChild(cell3);
+
+            let cell4 = document.createElement("td"); 
+            cell4.innerHTML = ticket.Resolved; 
+            row.appendChild(cell4);
+
+            let cell5 = document.createElement("td"); 
+            cell5.innerHTML = ticket.Description; 
+            row.appendChild(cell5);
+
+            let cell6 = document.createElement("td"); 
+            cell6.innerHTML = ticket.Author; 
+            row.appendChild(cell6);
+
+            let cell7 = document.createElement("td"); 
+            cell7.innerHTML = ticket.Resolver; 
+            row.appendChild(cell7);
+
+            let cell8 = document.createElement("td"); 
+            cell8.innerHTML = ticket.Status; 
+            row.appendChild(cell8);
+
+            let cell9 = document.createElement("td"); 
+            cell9.innerHTML = ticket.Type; 
+            row.appendChild(cell9);
+
+            // let cell7 = document.createElement("td"); 
+            // //this would return the entire home object so we look only for the homeName
+            // cell7.innerHTML = avenger.home_fk.home_name; 
+            // row.appendChild(cell7);
+
+            //the tr called row that we created in the for loop gets appended to the table body
+            //a new row will be appended for ever Avenger object that comes in
+            document.getElementById("ticketBody").appendChild(row);
+
+        }
+
+    }
+
+}
+
+
+
+
+
 
 //login functionality below-----------------
 
