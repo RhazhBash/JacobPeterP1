@@ -28,4 +28,8 @@ public class EmployeeService {
 	public void fireEmployee(int id) {
 		EDAO.youreFired(id);
 	}
+	
+	public int getIDByUsername(String username) {
+		return EDAO.IDByUsername(username);
+	}
 }

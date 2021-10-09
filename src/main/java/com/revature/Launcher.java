@@ -37,7 +37,7 @@ public class Launcher {
 		app.post("/login", LC.loginHandler);
 		app.get("/employees", EC.getAllEmployeesHandler);
 		app.get("/employees/id", EC.getEmployeeByIdHandler);
-		//app.get("/", ctx -> ctx.result("Hello Javalin! My Application recieved a GET request! how cool ;)"));
+		app.get("/employees/username", EC.getIDByUsernameHandler);
 	}
 	
 	

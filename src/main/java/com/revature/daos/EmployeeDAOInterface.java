@@ -15,4 +15,6 @@ public interface EmployeeDAOInterface {
 	
 	public void youreFired(int id);
 	
+	public int IDByUsername(String username);
+	
 }

@@ -59,7 +59,6 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 	
 	public Employee getEmployeeByID(int EID) {
 		List<Employee> employeeList=getEmployees();
-		Employee emp = new Employee();
 		
 		for (int i=0; i<employeeList.size(); i++) {
 			
@@ -84,6 +83,18 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 	    //This makes the pending delete to be done
 	    session.flush() ;
 
+	}
+	
+	public int IDByUsername(String username) {
+		List<Employee> employeeList=getEmployees();
+		
+		for (int i=0; i<employeeList.size(); i++) {
+			Employee temp=employeeList.get(i);
+			if (username.equals(temp.getUsername()))
+				return temp.getId();
+		}
+		return 0;
+		
 	}
 	
 

@@ -88,6 +88,25 @@ public class EmployeeController {
 			//Any feedback like "John Smith successfully terminated" can go in the front end
 			
 		};
+		
+		public Handler getIDByUsernameHandler = (ctx) -> {
+			if(ctx.req.getSession(false) != null) {
+				EmployeeDAO EDAO=new EmployeeDAO();
+				
+				String username=ctx.queryParam("username");
+				
+				Gson gson = new Gson();
+				
+				String JSONID = gson.toJson(ES.getIDByUsername(username));
+				
+				ctx.result(JSONID);
+				
+				ctx.status(200);
+				
+			}
+			else
+				ctx.status(403);
+		};
 	
 	
 	//Add employee?
