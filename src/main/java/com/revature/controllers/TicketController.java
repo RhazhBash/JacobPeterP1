@@ -19,7 +19,7 @@ public class TicketController {
 	
 	public Handler getAllTicketsHandler = (ctx) -> {
 		
-		//if(ctx.req.getSession(false) != null) {
+		if(ctx.req.getSession(false) != null) {
 		
 			List<Ticket> Tickets = TS.getTickets();
 		
@@ -30,17 +30,17 @@ public class TicketController {
 			ctx.result(JSONTickets); 
 		
 			ctx.status(200); 
-	//	}
+		}
 		
-		//else {
-		//	ctx.status(403); 
-		//}
+		else {
+			ctx.status(403); 
+		}
 		
 	};
 	
 	public Handler getActiveTicketsHandler = (ctx) -> {
 		
-		//if(ctx.req.getSession(false) != null) {
+		if(ctx.req.getSession(false) != null) {
 			
 			List<Ticket> activeTickets = TS.getActiveTickets();
 			
@@ -51,16 +51,16 @@ public class TicketController {
 			ctx.result(JSONTickets); 
 		
 			ctx.status(200); 
-		//}
+		}
 		
-		//else {
-		//	ctx.status(403); 
-		//}
+		else {
+			ctx.status(403); 
+		}
 		};
 		
 	public Handler getActiveTicketsByEmployeeHandler = (ctx) -> {
 			
-		//if(ctx.req.getSession(false) != null) {
+		if(ctx.req.getSession(false) != null) {
 			
 			String Employee = ctx.queryParam("EID");
 			System.out.println(Employee);
@@ -75,19 +75,19 @@ public class TicketController {
 			ctx.result(JSONTickets); 
 			
 			ctx.status(200); 
-		//}
+		}
 			
-		//else {
-		//	ctx.status(403); 
-		//}
+		else {
+			ctx.status(403); 
+		}
 		};
 		
 	public Handler getTicketsByEmployeeHandler = (ctx) -> {
 			
-		//if(ctx.req.getSession(false) != null) {
+		if(ctx.req.getSession(false) != null) {
 				
 			String Employee = ctx.queryParam("EID");
-			//System.out.println(Employee);
+			
 			int EID = Integer.valueOf(Employee);
 					
 			List<Ticket> ticketsByEmployee = TS.getTicketsByEmployee(EID); 
@@ -99,17 +99,17 @@ public class TicketController {
 			ctx.result(JSONTickets); 
 				
 			ctx.status(200); 
-		//}
+		}
 				
-		//else {
-		//	ctx.status(403); 
-		//}
+		else {
+			ctx.status(403); 
+		}
 		};
 		
 		//The body of the post request should look like this
 		//{"Amount":<Money requested>, "Description":"<User inputed message>", "Status":"0", "Type":"<Chosen from 4 options>", "Author":{"id":<Employee ID>}}
 		public Handler newTicketHandler = (ctx) -> {
-			//if(ctx.req.getSession(false) != null) {
+			if(ctx.req.getSession(false) != null) {
 				
 				String body=ctx.body();
 				Date newDate=new Date();
@@ -131,19 +131,33 @@ public class TicketController {
 				
 				ctx.status(200);
  
-			//}
-			//else {
-			//	ctx.status(403);
-			//}
+			}
+			else {
+				ctx.status(403);
+			}
 		};
 		public Handler approveTicketHandler = (ctx) -> {
-			String TID = ctx.queryParam("TID");
-			int ID = Integer.valueOf(TID);
-			TS.approveTicket(ID);
+			if(ctx.req.getSession(false) != null) {
+				
+				String TID = ctx.queryParam("TID");
+				int ID = Integer.valueOf(TID);
+				TS.approveTicket(ID);
+			}
+			
+			else {
+				ctx.status(403); 
+			}
 		};
 		public Handler denyTicketHandler = (ctx) -> {
-			String TID = ctx.queryParam("TID");
-			int ID = Integer.valueOf(TID);
-			TS.denyTicket(ID);
+			if(ctx.req.getSession(false) != null) {
+				
+				String TID = ctx.queryParam("TID");
+				int ID = Integer.valueOf(TID);
+				TS.denyTicket(ID);
+}
+			
+			else {
+				ctx.status(403); 
+			}
 		};
 }
