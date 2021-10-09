@@ -13,9 +13,9 @@ public interface TicketDAOInterface {
 	
 	public List<Ticket> getActiveTickets(); //For managers to view active tickets
 	
-	public List<Ticket> getTicketByEmployee(int EID); //Outputs all tickets from a given employee
+	public List<Ticket> getTicketByEmployee(String Employee); //Outputs all tickets from a given employee
 	
-	public List<Ticket> getActiveTicketByEmployee(int EID); //For employees to view their pending tickets
+	public List<Ticket> getActiveTicketByEmployee(String Employee); //For employees to view their pending tickets
 	
 	public void newTicket(Ticket newTicket); //Submits a new reimbursement request
 	

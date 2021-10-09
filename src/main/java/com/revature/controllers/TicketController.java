@@ -62,11 +62,11 @@ public class TicketController {
 			
 		if(ctx.req.getSession(false) != null) {
 			
-			String Employee = ctx.queryParam("EID");
-			System.out.println(Employee);
+			String Employee = ctx.queryParam("username");
+			
 			int EID = Integer.valueOf(Employee);
 				
-			List<Ticket> activeTicketsByEmployee = TS.getActiveTicketsByEmployee(EID); 
+			List<Ticket> activeTicketsByEmployee = TS.getActiveTicketsByEmployee(Employee); 
 				
 			Gson gson = new Gson();
 			
@@ -86,11 +86,9 @@ public class TicketController {
 			
 		if(ctx.req.getSession(false) != null) {
 				
-			String Employee = ctx.queryParam("EID");
-			
-			int EID = Integer.valueOf(Employee);
+			String Employee = ctx.queryParam("username");
 					
-			List<Ticket> ticketsByEmployee = TS.getTicketsByEmployee(EID); 
+			List<Ticket> ticketsByEmployee = TS.getTicketsByEmployee(Employee); 
 					
 			Gson gson = new Gson();
 				

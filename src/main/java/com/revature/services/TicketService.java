@@ -20,12 +20,12 @@ public class TicketService {
 		return TDAO.getActiveTickets();
 	}
 	
-	public List<Ticket> getTicketsByEmployee(int EID) {
-		return TDAO.getTicketByEmployee(EID);
+	public List<Ticket> getTicketsByEmployee(String employee) {
+		return TDAO.getTicketByEmployee(employee);
 	}
 	
-	public List<Ticket> getActiveTicketsByEmployee(int EID) {
-		return TDAO.getActiveTicketByEmployee(EID);
+	public List<Ticket> getActiveTicketsByEmployee(String employee) {
+		return TDAO.getActiveTicketByEmployee(employee);
 	}
 	
 	public void newTicket(Ticket ticket) {

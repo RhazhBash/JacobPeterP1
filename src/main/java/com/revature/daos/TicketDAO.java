@@ -46,7 +46,7 @@ public class TicketDAO implements TicketDAOInterface {
 
 
 	@Override
-	public List<Ticket> getTicketByEmployee(int EID) {
+	public List<Ticket> getTicketByEmployee(String Employee) {
 		
 		//Same code as getActiveTickets except it sorts by employee ID
 		List<Ticket> ticketList=getTickets();
@@ -56,7 +56,7 @@ public class TicketDAO implements TicketDAOInterface {
 		for (int i=0; i<ticketList.size(); i++) {
 			
 			Ticket temp=ticketList.get(i);
-			if (EID==temp.getAuthor().getId())
+			if (Employee.equals(temp.getAuthor().getUsername()))
 					employeeTickets.add(temp);
 		}
 		
@@ -65,7 +65,7 @@ public class TicketDAO implements TicketDAOInterface {
 
 	@SuppressWarnings("null")
 	@Override
-	public List<Ticket> getActiveTicketByEmployee(int EID) {
+	public List<Ticket> getActiveTicketByEmployee(String Employee) {
 		
 		//Combines the two methods above
 		List<Ticket> ticketList=getTickets();
@@ -75,7 +75,7 @@ public class TicketDAO implements TicketDAOInterface {
 			
 			Ticket temp=ticketList.get(i);
 			int status=temp.getStatus();
-			if (status==0&&temp.getAuthor().getId()==EID)
+			if (status==0&&Employee.equals(temp.getAuthor().getUsername()))
 				activeTickets.add(temp);
 		}
 		
