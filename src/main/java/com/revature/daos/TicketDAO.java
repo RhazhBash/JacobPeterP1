@@ -52,14 +52,14 @@ public class TicketDAO implements TicketDAOInterface {
 		List<Ticket> ticketList=getTickets();
 		ArrayList<Ticket> employeeTickets = new ArrayList<Ticket>();
 		
-		
-		for (int i=0; i<ticketList.size(); i++) {
-			
-			Ticket temp=ticketList.get(i);
-			if (Employee.equals(temp.getAuthor().getUsername()))
+		if (Employee != null) {
+			for (int i = 0; i < ticketList.size(); i++) {
+
+				Ticket temp = ticketList.get(i);
+				if (Employee.equals(temp.getAuthor().getUsername()))
 					employeeTickets.add(temp);
+			}
 		}
-		
 		return employeeTickets;
 	}
 

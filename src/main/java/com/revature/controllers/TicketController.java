@@ -64,7 +64,7 @@ public class TicketController {
 			
 			String Employee = ctx.queryParam("username");
 			
-			int EID = Integer.valueOf(Employee);
+			//int EID = Integer.valueOf(Employee);
 				
 			List<Ticket> activeTicketsByEmployee = TS.getActiveTicketsByEmployee(Employee); 
 				
@@ -109,23 +109,44 @@ public class TicketController {
 		public Handler newTicketHandler = (ctx) -> {
 			if(ctx.req.getSession(false) != null) {
 				
-				String body=ctx.body();
+				//store body info
+				//String body=ctx.body();
+				String incomingName = ctx.queryParam("username");
+				System.out.println("--------------------------------");
+				System.out.println(incomingName);
+				double incomingAmount = Double.parseDouble( ctx.queryParam("amount"));
+				String incomingType = ctx.queryParam("type");
+				String incomingDescription = ctx.queryParam("description");
+				
+				
+				//get id from username, and then employee from id
+				int incomingID = ES.getIDByUsername(incomingName);
+				Employee emp = ES.getEmployeeById(incomingID);
+				
+				
 				Date newDate=new Date();
 				Gson gson=new Gson();
 				
-				Ticket ticket=gson.fromJson(body, Ticket.class);
+				//Ticket ticket=gson.fromJson(body, Ticket.class);
+				
 				
 				long date=newDate.getTime();
 				Timestamp tstmp=new Timestamp(date);
-				ticket.setSubmitted(tstmp);
-				Employee emp=ES.getEmployeeById(ticket.getAuthor().getId());
+				//create a new Ticket
+				Ticket newTicket = new Ticket(incomingAmount, tstmp, incomingDescription, emp, incomingType );
+				
+				
 	
-				//ES.incrementTickets(emp);
+				//ticket.setSubmitted(tstmp);
+				//Employee emp=ES.getEmployeeById(ticket.getAuthor().getId());
+				
+				//increment the employees ticket count
+				ES.incrementTickets(emp);
 			
-				ticket.setAuthor(emp);
+				//ticket.setAuthor(emp);
 				
 				
-				TS.newTicket(ticket);
+				TS.newTicket(newTicket);
 				
 				ctx.status(200);
  

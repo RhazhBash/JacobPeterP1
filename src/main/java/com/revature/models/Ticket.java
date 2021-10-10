@@ -88,21 +88,38 @@ public class Ticket {
 		this.Type = type;
 	}
 
+	//Initially tickets are always status 0, no resolver and no resolved
+	public Ticket(double amount, Timestamp submitted, String description, Employee author, String type) {
+		super();
+		this.Amount = amount;
+		this.Submitted = submitted;
+		this.Status = 0;
+		this.Description = description;
+		this.Author = author;
+		this.Type = type;
+	}
+	
+	
 	@Override
 	public String toString() {
-		String base =  "Ticket [id=" + TID + ", Amount=" + Amount + ", Submitted=" + Submitted + ", Resolved=" + Resolved
-				+ ", Description= " + Description + 
+		String base =  "Ticket [id=" + TID + ", Amount=" + Amount + ", Submitted= " + Submitted + 
+				" Description= " + Description + 
 				", Author ID & Name: " + Author.getId() + " " + Author.getFirstName() + " " + Author.getLastName();
 		
 		//checks for resolution to prevent null exception
 		if (this.Resolver != null) {
-			base +=" Resolved by: " + Resolver.getId() + " " + Resolver.getFirstName() + " " + Resolver.getLastName();
+			base +=" Resolved by: " + Resolver.getId() + " " + Resolver.getFirstName() + " " + Resolver.getLastName() +
+					"Resolved= " + Resolved	;
 		}
 		base += ", Status= " + Status +
 				", Type= " + Type + "]";
 		
 		return base;
 	}
+
+
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -111,14 +128,11 @@ public class Ticket {
 		long temp;
 		temp = Double.doubleToLongBits(Amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((Author == null) ? 0 : Author.hashCode());
 		result = prime * result + ((Description == null) ? 0 : Description.hashCode());
-		result = prime * result + ((Resolved == null) ? 0 : Resolved.hashCode());
-		result = prime * result + ((Resolver == null) ? 0 : Resolver.hashCode());
 		result = prime * result + Status;
 		result = prime * result + ((Submitted == null) ? 0 : Submitted.hashCode());
-		result = prime * result + ((Type == null) ? 0 : Type.hashCode());
 		result = prime * result + TID;
+		result = prime * result + ((Type == null) ? 0 : Type.hashCode());
 		return result;
 	}
 
@@ -133,25 +147,10 @@ public class Ticket {
 		Ticket other = (Ticket) obj;
 		if (Double.doubleToLongBits(Amount) != Double.doubleToLongBits(other.Amount))
 			return false;
-		if (Author == null) {
-			if (other.Author != null)
-				return false;
-		} else if (!Author.equals(other.Author))
-			return false;
 		if (Description == null) {
 			if (other.Description != null)
 				return false;
 		} else if (!Description.equals(other.Description))
-			return false;
-		if (Resolved == null) {
-			if (other.Resolved != null)
-				return false;
-		} else if (!Resolved.equals(other.Resolved))
-			return false;
-		if (Resolver == null) {
-			if (other.Resolver != null)
-				return false;
-		} else if (!Resolver.equals(other.Resolver))
 			return false;
 		if (Status != other.Status)
 			return false;
@@ -160,12 +159,12 @@ public class Ticket {
 				return false;
 		} else if (!Submitted.equals(other.Submitted))
 			return false;
+		if (TID != other.TID)
+			return false;
 		if (Type == null) {
 			if (other.Type != null)
 				return false;
 		} else if (!Type.equals(other.Type))
-			return false;
-		if (TID != other.TID)
 			return false;
 		return true;
 	}
@@ -211,7 +210,10 @@ public class Ticket {
 	}
 
 	public Employee getAuthor() {
-		return Author;
+		if(Author != null) {
+			return Author;
+		}
+		return new Employee();
 	}
 
 	public void setAuthor(Employee author) {

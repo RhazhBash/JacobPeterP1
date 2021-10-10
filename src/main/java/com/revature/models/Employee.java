@@ -71,18 +71,15 @@ public class Employee {
 
 	
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((fName == null) ? 0 : fName.hashCode());
 		result = prime * result + id;
-		result = prime * result + (isManager ? 1231 : 1237);
 		result = prime * result + ((lName == null) ? 0 : lName.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + rejectedTickets;
-		result = prime * result + submittedTickets;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -96,11 +93,6 @@ public class Employee {
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
 		if (fName == null) {
 			if (other.fName != null)
 				return false;
@@ -108,21 +100,10 @@ public class Employee {
 			return false;
 		if (id != other.id)
 			return false;
-		if (isManager != other.isManager)
-			return false;
 		if (lName == null) {
 			if (other.lName != null)
 				return false;
 		} else if (!lName.equals(other.lName))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (rejectedTickets != other.rejectedTickets)
-			return false;
-		if (submittedTickets != other.submittedTickets)
 			return false;
 		if (username == null) {
 			if (other.username != null)

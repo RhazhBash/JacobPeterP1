@@ -18,8 +18,7 @@ async function ticketsFunc() { //async returns a promise (which fetch returns)
     //we will send a fetch request to get our avenger data
     //we need to include {credentials: "include"} in order to make use of the user's cookie
         console.log(uName);
-        //console.log(credentials);
-    let response = await fetch(url +  "tickets/active/employee?username=" + uName, {credentials: "include"});
+    let response = await fetch(url +  "tickets/active/employee?username=" + uName);
 
     //console.log(response);
 
@@ -46,12 +45,28 @@ async function ticketsFunc() { //async returns a promise (which fetch returns)
             row.appendChild(cell3);
 
             let cell4 = document.createElement("td"); 
-            cell4.innerHTML = ticket.Description; 
+            cell4.innerHTML = ticket.Resolved; 
             row.appendChild(cell4);
 
             let cell5 = document.createElement("td"); 
-            cell5.innerHTML = ticket.Type; 
+            cell5.innerHTML = ticket.Description; 
             row.appendChild(cell5);
+
+            let cell6 = document.createElement("td"); 
+            cell6.innerHTML = ticket.Author; 
+            row.appendChild(cell6);
+
+            let cell7 = document.createElement("td"); 
+            cell7.innerHTML = ticket.Resolver; 
+            row.appendChild(cell7);
+
+            let cell8 = document.createElement("td"); 
+            cell8.innerHTML = ticket.Status; 
+            row.appendChild(cell8);
+
+            let cell9 = document.createElement("td"); 
+            cell9.innerHTML = ticket.Type; 
+            row.appendChild(cell9);
 
             // let cell7 = document.createElement("td"); 
             // //this would return the entire home object so we look only for the homeName
@@ -129,21 +144,13 @@ async function newticketFunc(){
     //let status = document.getElementById("status").value;
     //let type = document.getElementById("tickettype").text;
 
+
     var ticktypeselect = document.getElementById("ticketType");
     var chosentype = ticktypeselect.options[ticketType.selectedIndex].text;
 
     console.log(reimbAmount);
     console.log(desc);
     console.log(chosentype)
-
-    let response = await fetch(url +  "tickets/new?username=" + uName + 
-                                        "&amount=" + reimbAmount +
-                                         "&type=" + chosentype + 
-                                         "&description=" + desc, 
-                                         {credentials: "include",
-                                         method: "POST"});
-
-    console.log(response.status);
 
 // var reimbAmount, Descr, status, type, author
 //     //we want to send the user/pass as JSON, so we need to make a JS object to send
