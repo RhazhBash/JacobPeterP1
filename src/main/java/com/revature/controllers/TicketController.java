@@ -114,6 +114,7 @@ public class TicketController {
 				String incomingName = ctx.queryParam("username");
 				System.out.println("--------------------------------");
 				System.out.println(incomingName);
+				System.out.println(ctx.queryParam("amount"));
 				double incomingAmount = Double.parseDouble( ctx.queryParam("amount"));
 				String incomingType = ctx.queryParam("type");
 				String incomingDescription = ctx.queryParam("description");
@@ -157,10 +158,10 @@ public class TicketController {
 		};
 		public Handler approveTicketHandler = (ctx) -> {
 			if(ctx.req.getSession(false) != null) {
-				
+				String resolver = ctx.queryParam("username");
 				String TID = ctx.queryParam("TID");
 				int ID = Integer.valueOf(TID);
-				TS.approveTicket(ID);
+				TS.approveTicket(ID, resolver);
 			}
 			
 			else {
@@ -169,10 +170,10 @@ public class TicketController {
 		};
 		public Handler denyTicketHandler = (ctx) -> {
 			if(ctx.req.getSession(false) != null) {
-				
+				String resolver = ctx.queryParam("username");
 				String TID = ctx.queryParam("TID");
 				int ID = Integer.valueOf(TID);
-				TS.denyTicket(ID);
+				TS.denyTicket(ID, resolver);
 }
 			
 			else {

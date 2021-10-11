@@ -9,19 +9,24 @@ document.getElementById("newticketButton").addEventListener("click", newticketFu
 
 
 var uName;
-var reimbAmount, Descr, status, type, author
-
+var reimbAmount, Descr, status, type, author;
+var checkbox=document.getElementById("showactive");
 
 
 async function ticketsFunc() { //async returns a promise (which fetch returns)
 
     //we will send a fetch request to get our avenger data
     //we need to include {credentials: "include"} in order to make use of the user's cookie
-        console.log(uName);
+        console.log("test");
         //console.log(credentials);
-    let response = await fetch(url +  "tickets/active/employee?username=" + uName, {credentials: "include"});
+    if(checkbox.checked) {
+    response = await fetch(url +  "tickets/active/employee?username=" + uName, {credentials: "include"});
+    }
+    else {
+    response = await fetch(url +  "tickets/employee?username=" + uName, {credentials: "include"});
+    }
 
-    //console.log(response);
+    console.log(response);
 
     if(response.status === 200) { //if the request comes back successful...
 
@@ -45,13 +50,55 @@ async function ticketsFunc() { //async returns a promise (which fetch returns)
             cell3.innerHTML = ticket.Submitted; 
             row.appendChild(cell3);
 
-            let cell4 = document.createElement("td"); 
-            cell4.innerHTML = ticket.Description; 
-            row.appendChild(cell4);
+            if(ticket.Status!=0) {
+                let cell4 = document.createElement("td"); 
+                cell4.innerHTML = ticket.Resolved; 
+                row.appendChild(cell4);
+            }
+            else {
+                let cell4 = document.createElement("td"); 
+                cell4.innerHTML = "Pending"; 
+                row.appendChild(cell4);
+            }
 
             let cell5 = document.createElement("td"); 
-            cell5.innerHTML = ticket.Type; 
+            cell5.innerHTML = ticket.Description; 
             row.appendChild(cell5);
+
+            let cell6 = document.createElement("td");
+            cell6.innerHTML = ((ticket.Author).fName + " " + (ticket.Author).lName);
+            row.appendChild(cell6);
+
+            if(ticket.Status!=0) {
+                let cell7 = document.createElement("td");
+                cell7.innerHTML = ((ticket.Resolver).fName + " " + (ticket.Resolver).lName);
+                row.appendChild(cell7);
+            }
+            else {
+                let cell7 = document.createElement("td");
+                cell7.innerHTML = "Pending";
+                row.appendChild(cell7);
+            }
+
+            if (ticket.Status=0) {
+                let cell8 = document.createElement("td");
+                cell8.innerHTML = "Pending review";
+                row.appendChild(cell8);
+            }
+            else if(ticket.Status=1) {
+                let cell8 = document.createElement("td");
+                cell8.innerHTML = "Approved";
+                row.appendChild(cell8);
+            }
+            else if(ticket.Status=-1) {
+                let cell8 = document.createElement("td");
+                cell8.innerHTML = "Denied";
+                row.appendChild(cell8);
+            }
+        
+            let cell9 = document.createElement("td");
+            cell9.innerHTML = ticket.Type;
+            row.appendChild(cell9);
 
             // let cell7 = document.createElement("td"); 
             // //this would return the entire home object so we look only for the homeName

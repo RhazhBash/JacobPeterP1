@@ -19,8 +19,8 @@ public interface TicketDAOInterface {
 	
 	public void newTicket(Ticket newTicket); //Submits a new reimbursement request
 	
-	public void acceptTicket(int TID); //Managers use this to approve/deny a ticket
+	public void acceptTicket(int TID, String username, Employee emp); //Managers use this to approve/deny a ticket
 	
-	public void denyTicket(int TID);
+	public void denyTicket(int TID, String username, Employee emp);
 	
 }

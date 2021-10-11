@@ -43,11 +43,12 @@ public class Ticket {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
 	@JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee Author;
-    
 	//Assign an employee as the manager of the ticket
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
 	@JoinColumn(name = "resolver_id", referencedColumnName = "employee_id")
     private Employee Resolver;
+	
+	private String Resolver_name;
 
     //-1 refused, 0 not resolved, 1 accepted
     private int Status;
@@ -60,7 +61,7 @@ public class Ticket {
 	}
 	
 	public Ticket(int id, double amount, Timestamp submitted, Timestamp resolved, String description, Employee author,
-			Employee resolver, int status, String type) {
+			Employee resolver, String Resolver_name, int status, String type) {
 		super();
 		this.TID = id;
 		this.Amount = amount;
@@ -69,6 +70,7 @@ public class Ticket {
 		this.Description = description;
 		this.Author = author;
 		this.Resolver = resolver;
+		this.setResolver_name(Resolver_name);
 		this.Status = status;
 		this.Type = type;
 	}
@@ -76,7 +78,7 @@ public class Ticket {
 
 
 	public Ticket(double amount, Timestamp submitted, Timestamp resolved, String description, Employee author,
-			Employee resolver, int status, String type) {
+			Employee resolver, String Resolver_name, int status, String type) {
 		super();
 		this.Amount = amount;
 		this.Submitted = submitted;
@@ -84,6 +86,7 @@ public class Ticket {
 		this.Description = description;
 		this.Author = author;
 		this.Resolver = resolver;
+		this.setResolver_name(Resolver_name);
 		this.Status = status;
 		this.Type = type;
 	}
@@ -108,7 +111,7 @@ public class Ticket {
 		
 		//checks for resolution to prevent null exception
 		if (this.Resolver != null) {
-			base +=" Resolved by: " + Resolver.getId() + " " + Resolver.getFirstName() + " " + Resolver.getLastName() +
+			base +=" Resolved by: " + Resolver_name +
 					"Resolved= " + Resolved	;
 		}
 		base += ", Status= " + Status +
@@ -242,6 +245,14 @@ public class Ticket {
 
 	public void setType(String type) {
 		Type = type;
+	}
+
+	public String getResolver_name() {
+		return Resolver_name;
+	}
+
+	public void setResolver_name(String resolver_name) {
+		Resolver_name = resolver_name;
 	}
 	
     
