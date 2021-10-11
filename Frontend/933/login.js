@@ -1,33 +1,42 @@
 const url = "http://localhost:8090/" //putting our base URL in a variable for cleaner code below
 //eventually we'll use this in our fetch requests and make calls to the server by appending endpoints
 
+
 //add functionality to our buttons using a eventlisteners
 //so when these buttons gets clicked, the appropriate function will be called
-document.getElementById("getTicketsButton").addEventListener("click", ticketsFunc);
-document.getElementById("getOpenTicketsButton").addEventListener("click", statustable = 1, ticketsFunc);
-document.getElementById("getDeniedTicketsButton").addEventListener("click", statustable = 2, ticketsFunc);
-document.getElementById("getAcceptedTicketsButton").addEventListener("click", statustable = 3, ticketsFunc);
+//document.getElementById("getTicketsButton").addEventListener("click", ticketsFunc);
+//document.getElementById("getOpenTicketsButton").addEventListener("click", ticketsFunc("Zabbedy"));
+//document.getElementById("getDeniedTicketsButton").addEventListener("click",  ticketsFunc("Zoobedy"));
+//document.getElementById("getAcceptedTicketsButton").addEventListener("click", ticketsFunc("Whap bam boom"));
+
 
 document.getElementById("loginButton").addEventListener("click", loginFunc);
 document.getElementById("newticketButton").addEventListener("click", newticketFunc);
 
-
-
-var statustable;
-
-
+//var statustable;
 var uName;
 var reimbAmount, Descr, status, type, author;
 
+async function ticketsFunc(tablechoice) { //async returns a promise (which fetch returns)
 
-
-async function ticketsFunc() { //async returns a promise (which fetch returns)
-
+    // if(btn.innerText == "Get all tickets:") {
+    //     console.log("All tickets")
+    // } 
+    // if (btn.innerText == "Get open tickets:") {
+    //     console.log("Open tickets")
+    // }
+    // if (btn.innerText == "Get denied tickets:") {
+    //     console.log("Denied tickets")
+    // } 
+    // if (btn.innerText == "Get accepted tickets:") {
+    //     console.log("Accepted tickets")
+    // }
+    
     //we will send a fetch request to get our avenger data
     //we need to include {credentials: "include"} in order to make use of the user's cookie
         console.log(uName);
-        console.log(statustable);
-    let response = await fetch(url +  "tickets/active/employee?username=" + uName);
+        console.log(tablechoice);
+    let response = await fetch(url +  "tickets/active/employee?username=" + uName, {credentials: "include"});
 
     //console.log(response);
 
@@ -54,28 +63,22 @@ async function ticketsFunc() { //async returns a promise (which fetch returns)
             row.appendChild(cell3);
 
             let cell4 = document.createElement("td"); 
-            cell4.innerHTML = ticket.Resolved; 
+            cell4.innerHTML = ticket.Description; 
             row.appendChild(cell4);
 
             let cell5 = document.createElement("td"); 
-            cell5.innerHTML = ticket.Description; 
+            cell5.innerHTML = ticket.Type; 
             row.appendChild(cell5);
 
             let cell6 = document.createElement("td"); 
-            cell6.innerHTML = ticket.Author; 
+            cell6.innerHTML = (ticket.Author.fName + " " + ticket.Author.lName); 
             row.appendChild(cell6);
 
-            let cell7 = document.createElement("td"); 
-            cell7.innerHTML = ticket.Resolver; 
-            row.appendChild(cell7);
-
-            let cell8 = document.createElement("td"); 
-            cell8.innerHTML = ticket.Status; 
-            row.appendChild(cell8);
-
-            let cell9 = document.createElement("td"); 
-            cell9.innerHTML = ticket.Type; 
-            row.appendChild(cell9);
+            if (ticket.status) {
+                let cell7 = document.createElement("td"); 
+                cell7.innerHTML = (ticket.Resolver.fName + " " + ticket.Resolver.lName); 
+                row.appendChild(cell7);
+            }
 
             // let cell7 = document.createElement("td"); 
             // //this would return the entire home object so we look only for the homeName
@@ -153,13 +156,21 @@ async function newticketFunc(){
     //let status = document.getElementById("status").value;
     //let type = document.getElementById("tickettype").text;
 
-
     var ticktypeselect = document.getElementById("ticketType");
     var chosentype = ticktypeselect.options[ticketType.selectedIndex].text;
 
     console.log(reimbAmount);
     console.log(desc);
     console.log(chosentype)
+
+    let response = await fetch(url +  "tickets/new?username=" + uName + 
+                                        "&amount=" + reimbAmount +
+                                         "&type=" + chosentype + 
+                                         "&description=" + desc, 
+                                         {credentials: "include",
+                                         method: "POST"});
+
+    console.log(response.status);
 
 // var reimbAmount, Descr, status, type, author
 //     //we want to send the user/pass as JSON, so we need to make a JS object to send

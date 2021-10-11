@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container" id="fullcontainer">
+        <div id="options">
+            <button id="createNewTicket" class="btn btn-success col-sm-4">Submit reimbursement request</button>
+            <br>
+            <button id="viewActive" class="btn btn-success col-sm-4">View active tickets</button>
+            <br>
+            <button id="viewAll" class="btn btn-success col-sm-4">View all tickets</button>
+            <!--If user=manager add button to go to manager page-->
+        </div>
+        <div id="tickets">
+            <table id="tickets" class="table table-hover table-bordered table-dark">
+                <thead id="ticketHead">
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Request type</th>
+                        <th>Amount requested</th>
+                        <th>Amount paid out</th>
+                        <!--The description field of the table will require some scripting to display a lot of text on a button click-->
+                        <th>Description</th> 
+                        <th>Submitted</th> <!--Times the ticket was made/closed-->
+                        <th>Closed</th> <!--Figure out a default value for active tickets to have-->
+                        <th>Manager</th> <!--The manager who handles your request-->
+                        <th>Status</th> <!--Approved, denied, or pending-->
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

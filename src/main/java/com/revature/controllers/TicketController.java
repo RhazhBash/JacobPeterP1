@@ -160,7 +160,8 @@ public class TicketController {
 			if(ctx.req.getSession(false) != null) {
 				String resolver = ctx.queryParam("username");
 				String TID = ctx.queryParam("TID");
-				int ID = Integer.valueOf(TID);
+				System.out.println(TID);
+				int ID = Integer.parseInt(TID);
 				TS.approveTicket(ID, resolver);
 			}
 			

@@ -5,8 +5,8 @@ const url = "http://localhost:8090/" //putting our base URL in a variable for cl
 //so when these buttons gets clicked, the appropriate function will be called
 document.getElementById("getTicketsButton").addEventListener("click", ticketsFunc);
 document.getElementById("getOpenTicketsButton").addEventListener("click", statustable = 1, ticketsFunc);
-document.getElementById("getDeniedTicketsButton").addEventListener("click", statustable = 2, ticketsFunc);
-document.getElementById("getAcceptedTicketsButton").addEventListener("click", statustable = 3, ticketsFunc);
+document.getElementById("getDeniedTicketsButton").addEventListener("click", statustable = 2);
+document.getElementById("getAcceptedTicketsButton").addEventListener("click", statustable = 3);
 
 document.getElementById("loginButton").addEventListener("click", loginFunc);
 document.getElementById("newticketButton").addEventListener("click", newticketFunc);
